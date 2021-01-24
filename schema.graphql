@@ -51,13 +51,35 @@ type AnswerNodeEdge {
 
 scalar DateTime
 
+scalar Email
+
+scalar GenericScalar
+
 type Mutation {
   questionCreate(input: QuestionCreateInput!): QuestionCreatePayload
   answerCreate(input: AnswerCreateInput!): AnswerCreatePayload
+  userCreate(input: UserCreateInput!): UserCreatePayload
+  userUpdate(input: UserUpdateInput!): UserUpdatePayload
+  tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
+  verifyToken(input: VerifyInput!): VerifyPayload
+  refreshToken(input: RefreshInput!): RefreshPayload
 }
 
 interface Node {
   id: ID!
+}
+
+input ObtainJSONWebTokenInput {
+  clientMutationId: String
+  username: String!
+  password: String!
+}
+
+type ObtainJSONWebTokenPayload {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  clientMutationId: String
+  token: String!
 }
 
 type PageInfo {
@@ -68,10 +90,10 @@ type PageInfo {
 }
 
 type Query {
-  question(id: ID!): QuestionNode
   questions(before: String, after: String, first: Int, last: Int): QuestionConnection
-  answer(id: ID!): AnswerNode
   answers(before: String, after: String, first: Int, last: Int): AnswerConnection
+  node(id: ID!): Node
+  viewer: UserType
 }
 
 type QuestionConnection {
@@ -104,5 +126,64 @@ type QuestionNode implements Node {
   citationUrl: String!
   citationTitle: String!
   citationImageUrl: String!
-  answers(before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
+  answers(offset: Int, before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
+}
+
+input RefreshInput {
+  token: String
+  clientMutationId: String
+}
+
+type RefreshPayload {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  clientMutationId: String
+  token: String!
+}
+
+input UserCreateInput {
+  username: String!
+  email: Email!
+  password: String!
+  clientMutationId: String
+}
+
+type UserCreatePayload {
+  user: UserType
+  clientMutationId: String
+}
+
+type UserType {
+  id: ID!
+  password: String!
+  lastLogin: DateTime
+  isSuperuser: Boolean!
+  username: String!
+  firstName: String!
+  lastName: String!
+  email: String!
+  isStaff: Boolean!
+  isActive: Boolean!
+  dateJoined: DateTime!
+}
+
+input UserUpdateInput {
+  username: String
+  email: Email
+  clientMutationId: String
+}
+
+type UserUpdatePayload {
+  user: UserType
+  clientMutationId: String
+}
+
+input VerifyInput {
+  token: String
+  clientMutationId: String
+}
+
+type VerifyPayload {
+  payload: GenericScalar!
+  clientMutationId: String
 }
