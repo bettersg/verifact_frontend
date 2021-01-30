@@ -10,8 +10,8 @@ export default (props) => {
       <Nav className='mr-auto'></Nav>
       <Nav style={{ alignItems: 'center' }}>
         <Nav.Link style={{ color: '#30323D' }} href="login">Log In</Nav.Link>
-        <Nav.Link style={{ color: '#30323D' }} href="signup">
-          Sign Up
+        <Nav.Link style={{ color: '#30323D' }} href="register">
+          Register
           </Nav.Link>
         <Nav.Link href="/askquestion" >
           <CustomButton >Ask a Question</CustomButton>
