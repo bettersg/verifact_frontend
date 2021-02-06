@@ -94,4 +94,4 @@ const Button = styled.button`
   color: #222; 
   box-shadow: 0 11px 36px 0 rgb(70 89 138 / 25%);
   border-radius: 25px;
-`;
+`
