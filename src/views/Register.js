@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import mutate from '../utils/mutate'
-
 import graphql from 'babel-plugin-relay/macro'
 
-import { Form, Button, Container } from 'react-bootstrap'
+import styled from "styled-components"
+import { Form, Container } from 'react-bootstrap'
 
 const mutation = graphql`
     mutation RegisterMutation($input: UserCreateInput!){
@@ -83,3 +83,15 @@ function Register ({ history, props }) {
 }
 
 export default withRouter(Register)
+
+const Button = styled.button`
+  background: #FFB800;
+  display: block;
+  height: 35px;
+  border :none;
+  margin: 15px auto;
+  width: 150px;
+  color: #222; 
+  box-shadow: 0 11px 36px 0 rgb(70 89 138 / 25%);
+  border-radius: 25px;
+`;
