@@ -4,11 +4,10 @@ import { withRouter } from 'react-router-dom'
 import mutate from '../utils/mutate'
 import graphql from 'babel-plugin-relay/macro'
 
-import styled from "styled-components"
 import { Form, Container } from 'react-bootstrap'
 
 const mutation = graphql`
-    mutation RegisterMutation($input: UserCreateInput!){
+  mutation RegisterMutation($input: UserCreateInput!){
     userCreate(input: $input){
             user {
                 id
@@ -17,12 +16,12 @@ const mutation = graphql`
     }
 `
 
-function Register ({ history, props }) {
+const Register = ({ history, props }) => {
   const [data, setData] = useState([])
-  const {username, email, password} = data
-  
+  const { username, email, password } = data
+
   function validateForm () {
-    return data.email && data.password 
+    return data.email && data.password
   }
 
   function handleSubmit (e) {
@@ -32,7 +31,7 @@ function Register ({ history, props }) {
       input: {
         username: username,
         email: email,
-        password: password,
+        password: password
       }
     }
 
@@ -43,16 +42,16 @@ function Register ({ history, props }) {
   return (
     <div>
       <Container>
-        <div className="register">
+        <div className='register'>
           <h1 className='title mb-5'>Register</h1>
           <Form onSubmit={handleSubmit}>
-            <Form.Group size='lg' controlId='email' > 
+            <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type='text'
                 value={data.username}
-                onChange={e => setData({...data, username: e.target.value})}
-                className="form"
+                onChange={e => setData({ ...data, username: e.target.value })}
+                className='form'
               />
             </Form.Group>
 
@@ -61,8 +60,8 @@ function Register ({ history, props }) {
               <Form.Control
                 type='email'
                 value={data.email}
-                onChange={e => setData({...data, email: e.target.value})}
-                className="form"
+                onChange={e => setData({ ...data, email: e.target.value })}
+                className='form'
               />
             </Form.Group>
 
@@ -71,16 +70,15 @@ function Register ({ history, props }) {
               <Form.Control
                 type='password'
                 value={data.password}
-                onChange={e => setData({...data, password: e.target.value})}
-                className="form"
+                onChange={e => setData({ ...data, password: e.target.value })}
+                className='form'
               />
             </Form.Group>
 
-              <button className={`float-right ${validateForm()? `register` : `register-disabled`}`} block size='md' type='submit' disabled={!validateForm()}>Register</button>
-           
+            <button className={`float-right ${validateForm() ? 'register' : 'register-disabled'}`} block size='md' type='submit' disabled={!validateForm()}>Register</button>
 
           </Form>
-             <button className="login float-right" block size='md' onClick={console.log('yes')}>Log In</button>
+          <button className='login float-right' block size='md' onClick={console.log('yes')}>Log In</button>
         </div>
       </Container>
     </div>
@@ -88,4 +86,3 @@ function Register ({ history, props }) {
 }
 
 export default withRouter(Register)
-
