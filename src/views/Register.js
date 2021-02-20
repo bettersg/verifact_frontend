@@ -18,12 +18,11 @@ const mutation = graphql`
 `
 
 function Register ({ history, props }) {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
+  const [data, setData] = useState([])
+  const {username, email, password} = data
+  
   function validateForm () {
-    return email.length > 0 && password.length > 0
+    return data.email && data.password 
   }
 
   function handleSubmit (e) {
@@ -33,50 +32,56 @@ function Register ({ history, props }) {
       input: {
         username: username,
         email: email,
-        password: password
+        password: password,
       }
     }
 
     mutate(mutation, variables)
       .then(() => { history.push('/login') })
-      .catch(err => console.log(err[0].message))
   }
 
   return (
     <div>
       <Container>
-        <h1 className='text-center mt-5'>Register</h1>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group size='lg' controlId='email'>
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type='text'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </Form.Group>
+        <div className="register">
+          <h1 className='title mb-5'>Register</h1>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group size='lg' controlId='email' > 
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type='text'
+                value={data.username}
+                onChange={e => setData({...data, username: e.target.value})}
+                className="form"
+              />
+            </Form.Group>
 
-          <Form.Group size='lg' controlId='email'>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
+            <Form.Group size='lg' controlId='email'>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type='email'
+                value={data.email}
+                onChange={e => setData({...data, email: e.target.value})}
+                className="form"
+              />
+            </Form.Group>
 
-          <Form.Group size='lg' controlId='password'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Group>
+            <Form.Group size='lg' controlId='password'>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type='password'
+                value={data.password}
+                onChange={e => setData({...data, password: e.target.value})}
+                className="form"
+              />
+            </Form.Group>
 
-          <Button block size='md' type='submit' disabled={!validateForm()}>Register</Button>
+              <button className={`float-right ${validateForm()? `register` : `register-disabled`}`} block size='md' type='submit' disabled={!validateForm()}>Register</button>
+           
 
-        </Form>
+          </Form>
+             <button className="login float-right" block size='md' onClick={console.log('yes')}>Log In</button>
+        </div>
       </Container>
     </div>
   )
@@ -84,14 +89,3 @@ function Register ({ history, props }) {
 
 export default withRouter(Register)
 
-const Button = styled.button`
-  background: #FFB800;
-  display: block;
-  height: 35px;
-  border :none;
-  margin: 15px auto;
-  width: 150px;
-  color: #222; 
-  box-shadow: 0 11px 36px 0 rgb(70 89 138 / 25%);
-  border-radius: 25px;
-`
