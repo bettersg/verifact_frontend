@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 
 import mutate from '../utils/mutate'
 import graphql from 'babel-plugin-relay/macro'
@@ -20,11 +21,11 @@ const Register = ({ history, props }) => {
   const [data, setData] = useState([])
   const { username, email, password } = data
 
-  function validateForm () {
+  const validateForm = () => {
     return data.email && data.password
   }
 
-  function handleSubmit (e) {
+  const handleSubmit = (e) => {
     e.preventDefault()
 
     const variables = {
@@ -40,9 +41,9 @@ const Register = ({ history, props }) => {
   }
 
   return (
-    <div>
+    <>
       <Container>
-        <div className='register'>
+        <RegisterWrapper>
           <h1 className='title mb-5'>Register</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
@@ -75,14 +76,85 @@ const Register = ({ history, props }) => {
               />
             </Form.Group>
 
-            <button className={`float-right ${validateForm() ? 'register' : 'register-disabled'}`} block size='md' type='submit' disabled={!validateForm()}>Register</button>
-
+            {validateForm()
+              ? <ButtonRegister block size='md' type='submit'>Register </ButtonRegister>
+              : <ButtonRegisterDisabled block size='md' type='submit' disabled>Register </ButtonRegisterDisabled>}
+            <ButtonLogin
+              block size='md'
+              onClick={(e) => {
+                e.preventDefault()
+                history.push('/login')
+              }}
+            >Log In
+            </ButtonLogin>
           </Form>
-          <button className='login float-right' block size='md' onClick={console.log('yes')}>Log In</button>
-        </div>
+        </RegisterWrapper>
       </Container>
-    </div>
+    </>
   )
 }
 
 export default withRouter(Register)
+
+const RegisterWrapper = styled.div`
+  width: 50%;
+  margin: 45px auto;
+  background: #EEF0F2;
+  border-radius: 20px;
+  padding: 50px;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  height: 450px;
+
+  @media only screen and (max-width: 1199px){
+    width: 75%;
+  }
+
+  @media only screen and (max-width: 767px){
+    width: 96%;
+  }
+`
+
+const ButtonRegister = styled.button`
+  background: #FFB800;
+  border: none;
+  border-radius: 10px;
+  margin-left: 8px;
+  margin-top: 15px;
+  font-weight: 600;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #30323D;
+  height: 40px;
+  width: 100px;
+  float: right;
+`
+
+const ButtonRegisterDisabled = styled.button`
+  background: #414141;
+  border: none;
+  border-radius: 10px;
+  margin-left: 8px;
+  margin-top: 15px;
+  font-weight: 600;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #ffffff;
+  height: 40px;
+  width: 100px;
+  float: right;
+`
+
+const ButtonLogin = styled.button`
+  border: none;
+  font-weight: 600;
+  margin-top: 15px;
+  border-radius: 10px;
+  color: #30323D;
+  height: 40px;
+  float: right;
+`
