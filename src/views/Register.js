@@ -20,6 +20,7 @@ const mutation = graphql`
 const Register = ({ history, props }) => {
   const [data, setData] = useState([])
   const { username, email, password } = data
+  const [error, setError] = useState('none')
 
   const validateForm = () => {
     return data.email && data.password
@@ -38,13 +39,18 @@ const Register = ({ history, props }) => {
 
     mutate(mutation, variables)
       .then(() => { history.push('/login') })
+      .catch((e) => {
+        const message = e[0].message.substring(96)
+        setError(message)
+      })
   }
 
   return (
     <>
       <Container>
+        <ErrorMessage error={error}>{error}</ErrorMessage>
         <RegisterWrapper>
-          <h1 className='title mb-5'>Register</h1>
+          <Title>Register</Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
@@ -157,4 +163,20 @@ const ButtonLogin = styled.button`
   color: #30323D;
   height: 40px;
   float: right;
+`
+
+const Title = styled.h1`
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 3rem !important;
+  text-align: center;
+`
+
+const ErrorMessage = styled.h1`
+  font-weight: bold;
+  font-size: 32px;
+  margin-bottom: 3rem !important;
+  margin-top: 3rem !important;
+  text-align: center;
+  opacity: ${(props) => props.error === 'none' ? '0' : '1'}
 `
