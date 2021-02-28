@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import mutate from '../utils/mutate'
@@ -23,7 +23,7 @@ const Register = ({ history, props }) => {
   const [error, setError] = useState('none')
 
   const validateForm = () => {
-    return data.email && data.password
+    return data.email && data.password && data.username
   }
 
   const handleSubmit = (e) => {
@@ -49,14 +49,13 @@ const Register = ({ history, props }) => {
     <>
       <Container>
         <ErrorMessage error={error}>{error}</ErrorMessage>
-        <RegisterWrapper>
+        <Wrapper>
           <Title>Register</Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
               <Form.Control
                 type='text'
-                value={data.username}
                 onChange={e => setData({ ...data, username: e.target.value })}
                 className='form'
               />
@@ -66,7 +65,6 @@ const Register = ({ history, props }) => {
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type='email'
-                value={data.email}
                 onChange={e => setData({ ...data, email: e.target.value })}
                 className='form'
               />
@@ -76,25 +74,26 @@ const Register = ({ history, props }) => {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type='password'
-                value={data.password}
                 onChange={e => setData({ ...data, password: e.target.value })}
                 className='form'
               />
             </Form.Group>
 
-            {validateForm()
-              ? <ButtonRegister block size='md' type='submit'>Register </ButtonRegister>
-              : <ButtonRegisterDisabled block size='md' type='submit' disabled>Register </ButtonRegisterDisabled>}
-            <ButtonLogin
+            <Button
               block size='md'
-              onClick={(e) => {
-                e.preventDefault()
-                history.push('/login')
-              }}
-            >Log In
-            </ButtonLogin>
+              type='register'
+              disabled={!validateForm()}
+            >Register
+            </Button>
+
+            <Button
+              block size='md'
+              type='login'
+            ><Link to='/login'> Login </Link>
+            </Button>
+
           </Form>
-        </RegisterWrapper>
+        </Wrapper>
       </Container>
     </>
   )
@@ -102,7 +101,7 @@ const Register = ({ history, props }) => {
 
 export default withRouter(Register)
 
-const RegisterWrapper = styled.div`
+const Wrapper = styled.div`
   width: 50%;
   margin: 45px auto;
   background: #EEF0F2;
@@ -124,9 +123,9 @@ const RegisterWrapper = styled.div`
     width: 96%;
   }
 `
-
-const ButtonRegister = styled.button`
-  background: #FFB800;
+const Button = styled.button`
+  background: ${props => props.disabled ? '#414141' : '#FFB800'};
+  background: ${props => props.type === 'login' ? 'none' : ''};
   border: none;
   border-radius: 10px;
   margin-left: 8px;
@@ -134,35 +133,15 @@ const ButtonRegister = styled.button`
   font-weight: 600;
   padding-left: 5px;
   padding-right: 5px;
-  color: #30323D;
+  color: ${props => props.type === 'login' ? '#30323D' : ''};
   height: 40px;
   width: 100px;
   float: right;
-`
 
-const ButtonRegisterDisabled = styled.button`
-  background: #414141;
-  border: none;
-  border-radius: 10px;
-  margin-left: 8px;
-  margin-top: 15px;
-  font-weight: 600;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #ffffff;
-  height: 40px;
-  width: 100px;
-  float: right;
-`
-
-const ButtonLogin = styled.button`
-  border: none;
-  font-weight: 600;
-  margin-top: 15px;
-  border-radius: 10px;
-  color: #30323D;
-  height: 40px;
-  float: right;
+  :focus, :hover, :visited, :active{
+    border: none;
+    outline: none;
+  }
 `
 
 const Title = styled.h1`
@@ -178,5 +157,6 @@ const ErrorMessage = styled.h1`
   margin-bottom: 3rem !important;
   margin-top: 3rem !important;
   text-align: center;
+  color: #E55934;
   opacity: ${(props) => props.error === 'none' ? '0' : '1'}
 `
