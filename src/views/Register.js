@@ -6,6 +6,10 @@ import mutate from '../utils/mutate'
 import graphql from 'babel-plugin-relay/macro'
 
 import { Form, Container } from 'react-bootstrap'
+import { Wrapper } from '../styles/Wrapper'
+import { Button } from '../styles/Button'
+import { Title } from '../styles/Title'
+import { ErrorMessage } from '../styles/Error'
 
 const mutation = graphql`
   mutation RegisterMutation($input: UserCreateInput!){
@@ -81,14 +85,14 @@ const Register = ({ history, props }) => {
 
             <Button
               block size='md'
-              type='register'
+              type='control'
               disabled={!validateForm()}
             >Register
             </Button>
 
             <Button
               block size='md'
-              type='login'
+              type='redirect'
             ><Link to='/login'> Login </Link>
             </Button>
 
@@ -100,63 +104,3 @@ const Register = ({ history, props }) => {
 }
 
 export default withRouter(Register)
-
-const Wrapper = styled.div`
-  width: 50%;
-  margin: 45px auto;
-  background: #EEF0F2;
-  border-radius: 20px;
-  padding: 50px;
-  font-weight: 600;
-  font-family: 'Open Sans', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-  height: 450px;
-
-  @media only screen and (max-width: 1199px){
-    width: 75%;
-  }
-
-  @media only screen and (max-width: 767px){
-    width: 96%;
-  }
-`
-const Button = styled.button`
-  background: ${props => props.disabled ? '#414141' : '#FFB800'};
-  background: ${props => props.type === 'login' ? 'none' : ''};
-  border: none;
-  border-radius: 10px;
-  margin-left: 8px;
-  margin-top: 15px;
-  font-weight: 600;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: ${props => props.type === 'login' ? '#30323D' : ''};
-  height: 40px;
-  width: 100px;
-  float: right;
-
-  :focus, :hover, :visited, :active{
-    border: none;
-    outline: none;
-  }
-`
-
-const Title = styled.h1`
-  font-weight: bold;
-  font-size: 32px;
-  margin-bottom: 3rem !important;
-  text-align: center;
-`
-
-const ErrorMessage = styled.h1`
-  font-weight: bold;
-  font-size: 32px;
-  margin-bottom: 3rem !important;
-  margin-top: 3rem !important;
-  text-align: center;
-  color: #E55934;
-  opacity: ${(props) => props.error === 'none' ? '0' : '1'}
-`
