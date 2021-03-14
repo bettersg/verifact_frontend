@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-<<<<<<< HEAD
 export const Button = styled.button`
   background: ${props => props.disabled ? '#414141' : '#FFB800'};
   background: ${props => props.type === 'redirect' ? 'none' : ''};
@@ -20,7 +19,8 @@ export const Button = styled.button`
     border: none;
     outline: none;
   }
-=======
+`
+
 export const FormButton = styled.button`
     background: none;
     border-radius: 1rem;
@@ -46,5 +46,4 @@ export const VoteButton = styled.button`
     font-size: 1.4rem;
 
     background: ${({ background }) => ` var(--${background})`};
->>>>>>> main
 `
