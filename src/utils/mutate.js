@@ -2,14 +2,17 @@ import { commitMutation } from 'react-relay'
 
 import environment from '../config/relay'
 
-function mutate (mutation, variables) {
-  return new Promise((resolve, reject) => {
+function mutate (mutation, variables)
+{
+  return new Promise((resolve, reject) =>
+  {
     commitMutation(
       environment,
       {
         mutation,
         variables,
-        onCompleted: (response, errors) => {
+        onCompleted: (response, errors) =>
+        {
           if (errors) {
             reject(errors)
           } else {
@@ -23,4 +26,4 @@ function mutate (mutation, variables) {
   )
 }
 
-export default mutate
+export default mutate 

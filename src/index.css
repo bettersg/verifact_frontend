@@ -56,4 +56,10 @@ div.btn-control{
   font-weight: normal;
   font-size: 16px;
   line-height: 22px;
+:root {
+  --Red: #E55934;
+  --Green: #23BE7B;
+  --Primary: #FFB800;
+  --TextPrimary: #30323D;
+  --Border: #6C718A;
 }

@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Load node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install JavaScript dependencies
+        run: npm install
+
+      - name: Compile Relay code
+        run: npm run relay
+
+      - name: Build production bundle
+        env:
+          REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
+        run: npm run build
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.2.0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Deploy to App Engine
+        run: gcloud app deploy --quiet

@@ -25,12 +25,26 @@ export default (props) => {
 
 const CustomNavbar = styled(Navbar)`
   background-color: white;
-  height: 5.9rem;
   padding: 0 2.8rem;
   font-family: SF Pro Text;
   font-weight: bold;
   font-size: 1.4rem;
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.08);
+  
+  @media (max-width: 767px) {
+    padding: 1.1rem 2.8rem;
+  }
+`
+
+const Link = styled.a`
+  color: --var(TextPrimary);
+  text-decoration: none;
+`
+
+const CustomNav = styled(Nav)`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 `
 
 const CustomButton = styled(Button)`
@@ -42,7 +56,6 @@ const CustomButton = styled(Button)`
   transition-duration: 0.4s;
   font-weight: bold;
   font-size: 1.4rem;
-
   &:hover{
     background-color: lightgrey;
     color: #30323D;

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 
+import { PageWrap } from '../styles/Layout'
 import Query from '../components/Query'
 import QuestionCard from '../components/QuestionCard'
 import Hero from '../components/Hero'
@@ -19,35 +20,36 @@ const query = graphql`
   }
 `
 
-const ContentWrapper = styled.div`
-  padding: 0 16.6rem;
-  @media (max-width: 767px) {
-    padding: 0 2rem;
-    margin: 0;
+const List = styled.div`
+  > * {
+    border-bottom: 1px solid var(--Border);
+
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 `
 
-function Home (props) {
+function Home () {
   return (
-    <div>
+    <React.Fragment>
       <Hero />
-      <ContentWrapper>
+
+      <PageWrap>
         <Query
           query={query}
-          render={({ error, props }) => {
-            if (!props) {
-              return <div>Loading...</div>
-            } else if (error) {
-              return <div>{error.message}</div>
-            } else {
-              return props.questions.edges.map(({ node }) => {
-                return <QuestionCard key={node.id} question={node} visual />
-              })
-            }
+          render={({ props }) => {
+            return (
+              <List>
+                {props.questions.edges.map(({ node }) => {
+                  return <QuestionCard key={node.id} question={node} visual />
+                })}
+              </List>
+            )
           }}
         />
-      </ContentWrapper>
-    </div>
+      </PageWrap>
+    </React.Fragment>
   )
 }
 
