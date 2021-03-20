@@ -6,10 +6,7 @@ import mutate from '../utils/mutate'
 import graphql from 'babel-plugin-relay/macro'
 
 import { Form, Container } from 'react-bootstrap'
-import { Wrapper } from '../styles/Wrapper'
-import { Button } from '../styles/Button'
-import { Title } from '../styles/Title'
-import { ErrorMessage } from '../styles/Error'
+import { Text, Button, Layout } from '../styles'
 
 const mutation = graphql`
   mutation RegisterMutation($input: UserCreateInput!){
@@ -44,7 +41,7 @@ const Signup = ({ history, props }) => {
     mutate(mutation, variables)
       .then(() => { history.push('/login') })
       .catch((e) => {
-        const message = e[0].message.substring(96)
+        const message = e[0].message
         setError(message)
       })
   }
@@ -53,8 +50,8 @@ const Signup = ({ history, props }) => {
     <>
       <Container>
         <ErrorMessage error={error}>{error}</ErrorMessage>
-        <Wrapper>
-          <Title>Sign Up</Title>
+        <Layout.FormWindow>
+          <H1WithMarginBottom>Sign Up</H1WithMarginBottom>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
@@ -83,24 +80,41 @@ const Signup = ({ history, props }) => {
               />
             </Form.Group>
 
-            <Button
+            <Button.FormButton
               block size='md'
-              type='control'
+              background='Primary'
               disabled={!validateForm()}
-            >Register
-            </Button>
+            >Sign Up
+            </Button.FormButton>
 
-            <Button
+            <Button.FormButton
               block size='md'
-              type='redirect'
+              background='grey'
             ><Link to='/login'> Login </Link>
-            </Button>
+            </Button.FormButton>
 
           </Form>
-        </Wrapper>
+        </Layout.FormWindow>
       </Container>
     </>
   )
 }
 
 export default withRouter(Signup)
+
+const H1WithMarginBottom = styled(Text.H1)`
+  margin-bottom: 25px;
+`
+export const ErrorMessage = styled(Text.Small)`
+  font-weight: bold;
+  margin-bottom: 3rem !important;
+  margin-top: 3rem !important;
+  text-align: center;
+  color: var(--TextError);
+  white-space: nowrap;
+  overflow: hidden;
+  width: 60%;
+  margin: 0 auto;
+  text-overflow: ellipsis;
+  opacity: ${(props) => props.error === 'none' ? '0' : '1'}
+`
