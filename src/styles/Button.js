@@ -1,26 +1,5 @@
 import styled from 'styled-components'
 
-export const Button = styled.button`
-  background: ${props => props.disabled ? '#414141' : '#FFB800'};
-  background: ${props => props.type === 'redirect' ? 'none' : ''};
-  border: none;
-  border-radius: 10px;
-  margin-left: 8px;
-  margin-top: 15px;
-  font-weight: 600;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: ${props => props.type === 'login' ? '#30323D' : ''};
-  height: 40px;
-  width: 100px;
-  float: right;
-
-  :focus, :hover, :visited, :active{
-    border: none;
-    outline: none;
-  }
-`
-
 export const FormButton = styled.button`
     background: none;
     border-radius: 1rem;
@@ -34,8 +13,15 @@ export const FormButton = styled.button`
     line-height: 1.7rem;
     letter-spacing: 0;
     padding: 1rem 1.5rem;
+    float: right;
+    margin: 15px 0 0 8px;
 
-    background: ${({ background }) => background ? `var(--${background})` : `var(--Primary)`};
+    background: ${({ background }) => background ? `var(--${background})` : 'var(--Primary)'};
+
+    :focus, :hover, :visited, :active{
+      border: none;
+      outline: none;
+    }
 `
 
 export const VoteButton = styled.button`
