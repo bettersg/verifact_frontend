@@ -34,15 +34,6 @@ a:hover{
 }
 
 /* REGISTER */
-
-
-
-div.btn-control{
-  background: red;
-  display: flex;
-  justify-content: end;;
-}
-
 .form{
   height: 45px;
   background: #FFFFFF !important;
@@ -62,6 +53,9 @@ div.btn-control{
   --Red: #E55934;
   --Green: #23BE7B;
   --Primary: #FFB800;
+  --Disabled: #414141;
+  --TextError: #E55934;
   --TextPrimary: #30323D;
+  --TextDisabled: #414141;
   --Border: #6C718A;
 }
