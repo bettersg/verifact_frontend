@@ -21,7 +21,7 @@ const mutation = graphql`
     }
 `
 
-const Register = ({ history, props }) => {
+const Signup = ({ history, props }) => {
   const [data, setData] = useState([])
   const { username, email, password } = data
   const [error, setError] = useState('none')
@@ -54,7 +54,7 @@ const Register = ({ history, props }) => {
       <Container>
         <ErrorMessage error={error}>{error}</ErrorMessage>
         <Wrapper>
-          <Title>Register</Title>
+          <Title>Sign Up</Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
@@ -103,4 +103,4 @@ const Register = ({ history, props }) => {
   )
 }
 
-export default withRouter(Register)
+export default withRouter(Signup)
