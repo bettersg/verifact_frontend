@@ -13,6 +13,6 @@ export default [
     component={Question}
   />,
   <Route exact key="home" path="/" component={Home} />,
-  <Route exact key="register" path="/signup" component={Signup} />,
+  <Route exact key="signup" path="/signup" component={Signup} />,
   <Route key="404" path="*" component={NotFound} />,
 ];
