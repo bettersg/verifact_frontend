@@ -55,7 +55,7 @@ const Signup = ({ history, props }) => {
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
-              <Form.Control
+              <Layout.FormControl
                 type='text'
                 onChange={e => setData({ ...data, username: e.target.value })}
                 className='form'
@@ -64,7 +64,7 @@ const Signup = ({ history, props }) => {
 
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Email</Form.Label>
-              <Form.Control
+              <Layout.FormControl
                 type='email'
                 onChange={e => setData({ ...data, email: e.target.value })}
                 className='form'
@@ -73,7 +73,7 @@ const Signup = ({ history, props }) => {
 
             <Form.Group size='lg' controlId='password'>
               <Form.Label>Password</Form.Label>
-              <Form.Control
+              <Layout.FormControl
                 type='password'
                 onChange={e => setData({ ...data, password: e.target.value })}
                 className='form'
