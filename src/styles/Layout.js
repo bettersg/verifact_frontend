@@ -8,7 +8,7 @@ export const PageWrap = styled.div`
     margin: 0;
   }
 `
-export const FormWindow = styled.div`
+export const FormWrap = styled.div`
   width: 50%;
   margin: 45px auto;
   background: #EEF0F2;

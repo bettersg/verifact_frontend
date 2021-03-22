@@ -50,7 +50,7 @@ const Signup = ({ history, props }) => {
     <>
       <Container>
         <ErrorMessage error={error}>{error}</ErrorMessage>
-        <Layout.FormWindow>
+        <Layout.FormWrap>
           <H1WithMarginBottom>Sign Up</H1WithMarginBottom>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
@@ -84,7 +84,8 @@ const Signup = ({ history, props }) => {
               block size='md'
               background='Primary'
               disabled={!validateForm()}
-            >Sign Up
+            >
+              Sign Up
             </Button.FormButton>
 
             <Button.FormButton
@@ -94,7 +95,7 @@ const Signup = ({ history, props }) => {
             </Button.FormButton>
 
           </Form>
-        </Layout.FormWindow>
+        </Layout.FormWrap>
       </Container>
     </>
   )
@@ -107,8 +108,8 @@ const H1WithMarginBottom = styled(Text.H1)`
 `
 export const ErrorMessage = styled(Text.Small)`
   font-weight: bold;
-  margin-bottom: 3rem !important;
-  margin-top: 3rem !important;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
   text-align: center;
   color: var(--TextError);
   white-space: nowrap;
