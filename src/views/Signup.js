@@ -9,7 +9,7 @@ import { Form, Container } from 'react-bootstrap'
 import { Text, Button, Layout } from '../styles'
 
 const mutation = graphql`
-  mutation RegisterMutation($input: UserCreateInput!){
+  mutation SignupMutation($input: UserCreateInput!){
     userCreate(input: $input){
             user {
                 id
