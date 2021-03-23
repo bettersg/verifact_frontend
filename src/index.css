@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap');
 html{
   font-size: 10px;
 }
@@ -23,10 +24,22 @@ img {
   max-width: 100%;
 }
 
+a {
+  color: #30323D;
+}
+
+a:hover{
+  color: #30323D;
+  text-decoration: none;
+}
+
 :root {
   --Red: #E55934;
   --Green: #23BE7B;
   --Primary: #FFB800;
+  --Disabled: #414141;
+  --TextError: #E55934;
   --TextPrimary: #30323D;
+  --TextDisabled: #414141;
   --Border: #6C718A;
 }

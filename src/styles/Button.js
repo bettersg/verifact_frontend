@@ -13,8 +13,15 @@ export const FormButton = styled.button`
     line-height: 1.7rem;
     letter-spacing: 0;
     padding: 1rem 1.5rem;
+    float: right;
+    margin: 15px 0 0 8px;
 
-    background: ${({ background }) => background ? `var(--${background})` : `var(--Primary)`};
+    background: ${({ background }) => background ? `var(--${background})` : 'var(--Primary)'};
+
+    :focus, :hover, :visited, :active{
+      border: none;
+      outline: none;
+    }
 `
 
 export const VoteButton = styled.button`

@@ -24,3 +24,8 @@ yarn-error.log*
 
 # GraphQL
 __generated__
+
+
+# vim files
+*.swp
+*.swo
