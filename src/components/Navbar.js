@@ -36,17 +36,6 @@ const CustomNavbar = styled(Navbar)`
   }
 `
 
-const Link = styled.a`
-  color: --var(TextPrimary);
-  text-decoration: none;
-`
-
-const CustomNav = styled(Nav)`
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-`
-
 const CustomButton = styled(Button)`
   background-color: #EEF0F2;
   color: #30323D;
