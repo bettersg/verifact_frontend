@@ -18,7 +18,7 @@ const mutation = graphql`
 
 const Signup = ({ history, props }) => {
   const [data, setData] = useState([])
-  const { username, email, password } = data
+  const { username, password } = data
   const [error, setError] = useState('none')
 
   const validateForm = () => {
