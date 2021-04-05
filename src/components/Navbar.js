@@ -1,36 +1,36 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Navbar, Nav, Button } from 'react-bootstrap';
-import Logo from '../assets/VeriFactLogo.svg';
+import React from 'react'
+import styled from 'styled-components'
+import { Navbar, Nav, Button } from 'react-bootstrap'
+import Logo from '../assets/VeriFactLogo.svg'
 
-export default (props) => {
-	return (
-		<CustomNavbar sticky="top" collapseOnSelect expand="md">
-			<Navbar.Brand href="/" style={{ color: '#30323D', fontSize: '1.9rem' }}>
-				SG VERIFACT
-				<img src={Logo} alt="VeriFact logo" height="25rem"s/>
-			</Navbar.Brand>
-			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-			<Navbar.Collapse
-				id="responsive-navbar-nav"
-				className="justify-content-end"
-				style={{ backgroundColor: 'white' }}
-			>
-				<Nav style={{ alignItems: 'center' }}>
-					<Nav.Link style={{ color: '#30323D' }} href="login">
-						Log In
-					</Nav.Link>
-					<Nav.Link style={{ color: '#30323D' }} href="signup">
-						Sign Up
-					</Nav.Link>
-					<Nav.Link href="/askquestion">
-						<CustomButton>Ask a Question</CustomButton>
-					</Nav.Link>
-				</Nav>
-			</Navbar.Collapse>
-		</CustomNavbar>
-	);
-};
+export default props => {
+  return (
+    <CustomNavbar sticky='top' collapseOnSelect expand='md'>
+      <Navbar.Brand href='/' style={{ color: '#30323D', fontSize: '1.9rem' }}>
+        <img src={Logo} className='me-2' alt='VeriFact logo' height='25rem' />
+        SG VERIFACT
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+      <Navbar.Collapse
+        id='responsive-navbar-nav'
+        className='justify-content-end'
+        style={{ backgroundColor: 'white' }}
+      >
+        <Nav style={{ alignItems: 'center' }}>
+          <Nav.Link style={{ color: '#30323D' }} href='login'>
+            Log In
+          </Nav.Link>
+          <Nav.Link style={{ color: '#30323D' }} href='signup'>
+            Sign Up
+          </Nav.Link>
+          <Nav.Link href='/askquestion'>
+            <CustomButton>Ask a Question</CustomButton>
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </CustomNavbar>
+  )
+}
 
 const CustomNavbar = styled(Navbar)`
   background-color: white;
@@ -42,19 +42,19 @@ const CustomNavbar = styled(Navbar)`
   @media (max-width: 767px) {
     padding: 1.1rem 2.8rem;
   }
-`;
+`
 
 const CustomButton = styled(Button)`
-  background-color: #EEF0F2;
-  color: #30323D;
+  background-color: #eef0f2;
+  color: #30323d;
   border: none;
   border-radius: 1rem;
   padding: 1rem 1.5rem;
   transition-duration: 0.4s;
   font-weight: bold;
   font-size: 1.4rem;
-  &:hover{
+  &:hover {
     background-color: lightgrey;
-    color: #30323D;
+    color: #30323d;
   }
-`;
+`
