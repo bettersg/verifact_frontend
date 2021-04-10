@@ -41,7 +41,7 @@ const Signup = ({ history, props }) => {
         localStorage.setItem('token', token)
       })
       .catch((e) => {
-        const message = e[0].message
+        const { message } = e[0]
         setError(message)
       })
   }
