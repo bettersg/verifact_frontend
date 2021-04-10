@@ -11,7 +11,7 @@ import { Text, Button, Layout } from '../styles'
 const mutation = graphql`
   mutation LoginMutation($input: ObtainJSONWebTokenInput!){
     tokenAuth(input: $input) {
-      clientMutationId
+      token
     }
   } 
 `
@@ -36,7 +36,10 @@ const Signup = ({ history, props }) => {
     }
 
     mutate(mutation, variables)
-      .then(() => { history.push('/') })
+      .then(e => {
+        const { token } = e.tokenAuth
+        localStorage.setItem('token', token)
+      })
       .catch((e) => {
         const message = e[0].message
         setError(message)
