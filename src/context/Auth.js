@@ -1,6 +1,6 @@
-import React, { useState, useEffect, createContext} from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 
-import getToken from '../utils/auth'
+import { getJwToken, setJwToken } from '../utils/auth'
 
 export const AuthContext = createContext({
   token: null,
@@ -9,31 +9,31 @@ export const AuthContext = createContext({
   logOut: () => {}
 })
 
-export const AuthProvider = () => {
+export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState(null)
 
   useEffect(() => {
-    async function get() {
-      try {
-        const token = await getToken()
-        setToken(token)
-        setIsLoggedIn(true)
-      } catch {
-        console.log('error')
-      }
-    }
+    (async function () {
+      const token = await getJwToken()
+      setTokens(token)
+      setIsLoggedIn(token)
+    })()
   }, [])
 
+  const setTokens = (token) => {
+    setToken(token)
+    setJwToken(token)
+  }
+
   const logIn = async (token) => {
-    await setToken(token)
-    await this.setState({ token, isSignedIn: true })
+    await setTokens(token)
+    setIsLoggedIn(true)
   }
 
   const logOut = async () => {
-    setToken(null)
+    setTokens('')
     setIsLoggedIn(false)
-    return setToken('')
   }
 
   return (
@@ -44,7 +44,9 @@ export const AuthProvider = () => {
         logIn: logIn,
         logOut: logOut
       }}
-    />
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
 

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import mutate from '../utils/mutate'
+import { AuthContext } from '../context/Auth'
+
 import graphql from 'babel-plugin-relay/macro'
 
 import { Form, Container } from 'react-bootstrap'
@@ -16,10 +18,11 @@ const mutation = graphql`
   } 
 `
 
-const Signup = ({ history, props }) => {
+const Login = ({ history, props }) => {
   const [data, setData] = useState([])
   const { username, password } = data
   const [error, setError] = useState('none')
+  const value = useContext(AuthContext)
 
   const validateForm = () => {
     return data.password && data.username
@@ -36,9 +39,9 @@ const Signup = ({ history, props }) => {
     }
 
     mutate(mutation, variables)
-      .then(e => {
-        const { token } = e.tokenAuth
-        localStorage.setItem('token', token)
+      .then(res => {
+        value.logIn(res.tokenAuth.token)
+        history.push('/')
       })
       .catch((e) => {
         const { message } = e[0]
@@ -90,7 +93,7 @@ const Signup = ({ history, props }) => {
   )
 }
 
-export default withRouter(Signup)
+export default withRouter(Login)
 
 const H1WithMarginBottom = styled(Text.H1)`
   margin-bottom: 25px;

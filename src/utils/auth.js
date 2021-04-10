@@ -1,6 +1,8 @@
-const getToken = async () => {
+export const getJwToken = async () => {
   const response = localStorage.getItem('token')
   return response
 }
 
-export default getToken
+export const setJwToken = (token) => {
+  localStorage.setItem('token', token)
+}
