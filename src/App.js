@@ -17,5 +17,3 @@ export default function App () {
     </AuthProvider>
   )
 }
-
-// context - global variable
