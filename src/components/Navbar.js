@@ -44,7 +44,7 @@ const CustomNavbar = styled(Navbar)`
 `
 const CustomButton = styled(Button)`
   background-color: #EEF0F2;
-  color: #30323D;
+  color: var(--TextPrimary);
   border: none;
   border-radius: 1rem;
   padding: 1rem 1.5rem;
@@ -53,10 +53,10 @@ const CustomButton = styled(Button)`
   font-size: 1.4rem;
   &:hover{
     background-color: lightgrey;
-    color: #30323D;
+    color: var(--TextPrimary);
   }
 `
 
 const NavLink = styled(Nav.Link)`
-  color: #30323D !important;
+  color: var(--TextPrimary) !important;
 `
