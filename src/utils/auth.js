@@ -1,6 +1,5 @@
 export const getJwToken = async () => {
-  const response = localStorage.getItem('token')
-  return response
+  return localStorage.getItem('token')
 }
 
 export const setJwToken = (token) => {
