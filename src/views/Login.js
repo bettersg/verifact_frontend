@@ -21,7 +21,7 @@ const mutation = graphql`
 const Login = ({ history, props }) => {
   const [data, setData] = useState([])
   const { username, password } = data
-  const [error, setError] = useState('none')
+  const [error, setError] = useState(null)
   const value = useContext(AuthContext)
 
   const validateForm = () => {
@@ -53,7 +53,7 @@ const Login = ({ history, props }) => {
     <>
       <Container>
         <ErrorMessage error={error}>{error}</ErrorMessage>
-        <Layout.FormWrap>
+        <LoginFormWrap>
           <H1WithMarginBottom>Log In</H1WithMarginBottom>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
@@ -87,7 +87,7 @@ const Login = ({ history, props }) => {
             </Button.FormButton>
 
           </Form>
-        </Layout.FormWrap>
+        </LoginFormWrap>
       </Container>
     </>
   )
@@ -98,16 +98,11 @@ export default withRouter(Login)
 const H1WithMarginBottom = styled(Text.H1)`
   margin-bottom: 25px;
 `
-export const ErrorMessage = styled(Text.Small)`
-  font-weight: bold;
-  margin-bottom: 3rem;
-  margin-top: 3rem;
-  text-align: center;
-  color: var(--TextError);
-  white-space: nowrap;
-  overflow: hidden;
-  width: 60%;
-  margin: 0 auto;
-  text-overflow: ellipsis;
-  opacity: ${(props) => props.error === 'none' ? '0' : '1'}
+
+const LoginFormWrap = styled(Layout.FormWrap)`
+  height: 400px;
+`
+
+const ErrorMessage = styled(Text.Error)`
+  opacity: ${(props) => props.error ? '1' : '0'}
 `
