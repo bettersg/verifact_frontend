@@ -7,7 +7,7 @@ export default props => {
   return (
     <CustomNavbar sticky='top' collapseOnSelect expand='md'>
       <Navbar.Brand href='/' style={{ color: '#30323D', fontSize: '1.9rem' }}>
-        <img src={Logo} className='me-2' alt='VeriFact logo' height='25rem' />
+        <img src={Logo} className='me-3' alt='VeriFact logo' height='25rem' />
         SG VERIFACT
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
