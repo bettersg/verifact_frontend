@@ -11,19 +11,19 @@ export default (props) => {
       <Navbar.Brand href='/' style={{ color: '#30323D', fontSize: '1.9rem' }}>SG VERIFACT</Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav' style={{ backgroundColor: 'white' }}>
-        <Nav className='mr-auto' />
+        <Nav className='float-left' />
         <Nav style={{ alignItems: 'center' }}>
           {authValue.isLoggedIn
-            ? (<Nav.Link style={{ color: '#30323D' }} onClick={handleLogOut}>Log Out</Nav.Link>)
+            ? (<NavLink onClick={handleLogOut}>Log Out</NavLink>)
             : (
               <>
-                <Nav.Link style={{ color: '#30323D' }} href='login'>Log In</Nav.Link>
-                <Nav.Link style={{ color: '#30323D' }} href='signup'>Sign Up</Nav.Link>
+                <NavLink href='/login'>Log In</NavLink>
+                <NavLink href='/signup'>Sign Up</NavLink>
               </>
               )}
-          <Nav.Link href='/askquestion'>
+          <NavLink href='/askquestion'>
             <CustomButton>Ask a Question</CustomButton>
-          </Nav.Link>
+          </NavLink>
         </Nav>
       </Navbar.Collapse>
     </CustomNavbar>
@@ -55,4 +55,8 @@ const CustomButton = styled(Button)`
     background-color: lightgrey;
     color: #30323D;
   }
+`
+
+const NavLink = styled(Nav.Link)`
+  color: #30323D !important;
 `
