@@ -1,7 +1,17 @@
+import {
+  setLocalData,
+  getLocalData,
+  removeLocalData
+} from './localdata'
+
 export const getJwToken = async () => {
-  return localStorage.getItem('token')
+  return getLocalData('token')
 }
 
 export const setJwToken = (token) => {
-  localStorage.setItem('token', token)
+  setLocalData('token', token)
+}
+
+export const removeJwToken = (token) => {
+  removeLocalData('token')
 }

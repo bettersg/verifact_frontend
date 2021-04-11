@@ -1,6 +1,10 @@
 import React, { useState, useEffect, createContext } from 'react'
 
-import { getJwToken, setJwToken } from '../utils/auth'
+import {
+  getJwToken,
+  setJwToken,
+  removeJwToken
+} from '../utils/auth'
 
 export const AuthContext = createContext({
   token: null,
@@ -32,7 +36,8 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logOut = async () => {
-    setTokens('')
+    setToken(null)
+    removeJwToken()
     setIsLoggedIn(false)
   }
 
