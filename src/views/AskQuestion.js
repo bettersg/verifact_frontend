@@ -1,5 +1,6 @@
 import React from 'react'
 import graphql from 'babel-plugin-relay/macro'
+import { useHistory } from 'react-router-dom'
 
 import useForm from '../hooks/useForm'
 import { Button, Text } from '../styles'
@@ -17,10 +18,12 @@ const mutation = graphql`
 `
 
 function AskQuestion () {
+  const history = useHistory()
   const {
     errors,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    isLoading
   } = useForm({
     mutation,
     vars: {},
@@ -32,11 +35,10 @@ function AskQuestion () {
     },
     required: ['text', 'citationUrl'],
     afterSubmit: response => {
-      console.log('SUBMIT')
+      const id = response.questionCreate.question.id
+      history.push(`/question/${id}`)
     }
   })
-
-  console.log(errors)
 
   return (
     <FullPageForm
@@ -68,6 +70,7 @@ function AskQuestion () {
         <Button.FormButton
           block size='md'
           background='Primary'
+          disabled={isLoading}
         >
           Submit Question
         </Button.FormButton>

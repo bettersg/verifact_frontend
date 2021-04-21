@@ -21,22 +21,11 @@ function _validateInput (input, required, setErrors) {
   return valid
 }
 
-function handleServerErrors (serverErrors, setErrors) {
-  console.warn(serverErrors)
-  const error = serverErrors && serverErrors[0]
-
-  if (error && Array.isArray(serverErrors)) {
-    if (error.detail) {
-      const details = error.detail
-      const keys = Object.keys(details)
-      const errors = {}
-      for (let i = 0; i < keys.length; i++) {
-        errors[keys[i]] = `${camelToSentenceCase(keys[i])} ${details[keys[i]]}`
-      }
-      setErrors(errors)
-    } else if (error.message) {
-      setErrors({ form: error.message })
-    }
+function handleServerError (error, setErrors) {
+  if (error.message) {
+    setErrors({ form: 'There was a problem completing the requested action. Please try again soon, or contact us if the problem persists.' })
+  } else if (Array.isArray(error) && error[0].message) {
+    setErrors({ form: error[0].message })
   }
 }
 
@@ -83,7 +72,7 @@ function useForm ({
       const response = await mutate(mutation, variables)
       afterSubmit && afterSubmit(response)
     } catch (serverErrors) {
-      handleServerErrors(serverErrors, setErrors)
+      handleServerError(serverErrors, setErrors)
     } finally {
       if (ref.current) {
         setIsLoading(false)
