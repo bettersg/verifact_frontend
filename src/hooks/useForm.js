@@ -7,18 +7,18 @@ import validate from '../utils/validation'
 
 function _validateInput (input, required, setErrors) {
   const errors = {}
-  let valid = true
+  let isValid = true
   for (const key in input) {
     if (required.includes(key) && !input[key]) {
       errors[key] = `${camelToSentenceCase(key)} can not be blank`
-      valid = false
+      isValid = false
     } else if (input[key] && !validate(key, input[key])) {
       errors[key] = `Invalid ${camelToSentenceCase(key)}`
-      valid = false
+      isValid = false
     }
   }
   setErrors(errors)
-  return valid
+  return isValid
 }
 
 function handleServerError (error, setErrors) {

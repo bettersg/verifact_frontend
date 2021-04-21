@@ -1,6 +1,15 @@
 const validators = {
   email: (email) => {
     return /\S+@\S+/.test(email)
+  },
+  citationUrl: (string) => {
+    let url
+    try {
+      url = new URL(string)
+    } catch (_) {
+      return false
+    }
+    if (url) return true
   }
 }
 

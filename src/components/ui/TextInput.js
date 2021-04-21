@@ -12,6 +12,8 @@ function TextInput ({
 }) {
   if (!inputProps) inputProps = {}
 
+  console.log(!!error)
+
   return (
     <Form.Group size='lg'>
       {label && <Form.Label htmlFor={id}>{label}</Form.Label>}

@@ -61,7 +61,7 @@ function AskQuestion () {
 
       <TextInput
         id='citationUrl'
-        label='Citation URL'
+        label='Citation Url'
         onChange={handleChange}
         error={errors.citationUrl}
       />
