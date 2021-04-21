@@ -20,7 +20,6 @@ export const FormWrap = styled.div`
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
-  height: 450px;
 
   @media only screen and (max-width: 1199px){
     width: 75%;
@@ -29,7 +28,7 @@ export const FormWrap = styled.div`
   @media only screen and (max-width: 767px){
     width: 96%;
   }
-  
+
 `
 export const FormControl = styled(Form.Control)`
   height: 45px;
@@ -38,7 +37,6 @@ export const FormControl = styled(Form.Control)`
   box-sizing: border-box;
   border-radius: 10px;
   padding: 15px;
-  font-family: 'Open Sans', sans-serif;
   color: #464646;
   font-style: normal;
   font-weight: normal;

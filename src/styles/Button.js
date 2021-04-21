@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 
+export const FormButtonSet = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`
+
 export const FormButton = styled.button`
     background: none;
     border-radius: 1rem;
@@ -13,7 +19,6 @@ export const FormButton = styled.button`
     line-height: 1.7rem;
     letter-spacing: 0;
     padding: 1rem 1.5rem;
-    float: right;
     margin: 15px 0 0 8px;
 
     background: ${({ background }) => background ? `var(--${background})` : 'var(--Primary)'};

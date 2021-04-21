@@ -15,7 +15,7 @@ const mutation = graphql`
     tokenAuth(input: $input) {
       token
     }
-  } 
+  }
 `
 
 const Login = ({ history, props }) => {
@@ -54,7 +54,7 @@ const Login = ({ history, props }) => {
       <Container>
         <ErrorMessage error={error}>{error}</ErrorMessage>
         <LoginFormWrap>
-          <H1WithMarginBottom>Log In</H1WithMarginBottom>
+          <Text.H1>Log In</Text.H1>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
@@ -72,20 +72,21 @@ const Login = ({ history, props }) => {
               />
             </Form.Group>
 
-            <Button.FormButton
-              block size='md'
-              background='Primary'
-              disabled={!validateForm()}
-            >
-              Log In
-            </Button.FormButton>
+            <Button.FormButtonSet>
+              <Button.FormButton
+                block size='md'
+                background='grey'
+              ><Link to='/signup'> Sign Up </Link>
+              </Button.FormButton>
 
-            <Button.FormButton
-              block size='md'
-              background='grey'
-            ><Link to='/signup'> Sign Up </Link>
-            </Button.FormButton>
-
+              <Button.FormButton
+                block size='md'
+                background='Primary'
+                disabled={!validateForm()}
+              >
+                Log In
+              </Button.FormButton>
+            </Button.FormButtonSet>
           </Form>
         </LoginFormWrap>
       </Container>
@@ -94,10 +95,6 @@ const Login = ({ history, props }) => {
 }
 
 export default withRouter(Login)
-
-const H1WithMarginBottom = styled(Text.H1)`
-  margin-bottom: 25px;
-`
 
 const LoginFormWrap = styled(Layout.FormWrap)`
   height: 400px;

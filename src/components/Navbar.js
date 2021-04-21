@@ -21,7 +21,7 @@ export default (props) => {
                 <NavLink href='/signup'>Sign Up</NavLink>
               </>
               )}
-          <NavLink href='/askquestion'>
+          <NavLink href='/ask-a-question'>
             <CustomButton>Ask a Question</CustomButton>
           </NavLink>
         </Nav>
@@ -37,7 +37,7 @@ const CustomNavbar = styled(Navbar)`
   font-weight: bold;
   font-size: 1.4rem;
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.08);
-  
+
   @media (max-width: 767px) {
     padding: 1.1rem 2.8rem;
   }

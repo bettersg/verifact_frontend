@@ -158,7 +158,6 @@ const FormTextWrap = styled.div`
 `
 
 const FormSubLabel = styled(Text.Small)`
-    font-family: Open Sans;
     font-weight: 600;
     font-size: 1.6rem;
 `

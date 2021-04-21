@@ -4,13 +4,27 @@ export const H1 = styled.h1`
   font-family: SF Pro Display;
   font-size: 3.2rem;
   font-weight: bold;
-  margin: 0;
+  margin-bottom: 3rem;
 `
 
 export const H2 = styled.h2`
   font-size: 2.1rem;
   font-weight: bold;
   margin-bottom: 2rem;
+`
+
+export const Paragraph = styled.p`
+  font-family: SF Pro Text;
+  font-size: 1.6rem;
+  font-weight: normal;
+  margin-bottom: 2rem;
+`
+
+export const ParagraphStrong = styled.p`
+  font-family: SF Pro Text;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0;
 `
 
 export const Small = styled.p`
@@ -26,12 +40,6 @@ export const SmallStrong = styled.p`
 
 export const Tiny = styled.p`
   font-size: 1.2rem;
-  margin: 0;
-`
-export const ParagraphStrong = styled.p`
-  font-family: SF Pro Text;
-  font-size: 1.6rem;
-  font-weight: bold;
   margin: 0;
 `
 

@@ -51,7 +51,7 @@ const Signup = ({ history, props }) => {
       <Container>
         <SignupErrorMessage error={error}>{error}</SignupErrorMessage>
         <SignupFormWrap>
-          <H1WithMarginBottom>Sign Up</H1WithMarginBottom>
+          <Text.H1>Sign Up</Text.H1>
           <Form onSubmit={handleSubmit}>
             <Form.Group size='lg' controlId='email'>
               <Form.Label>Username</Form.Label>
@@ -80,20 +80,21 @@ const Signup = ({ history, props }) => {
               />
             </Form.Group>
 
-            <Button.FormButton
-              block size='md'
-              background='Primary'
-              disabled={!validateForm()}
-            >
-              Sign Up
-            </Button.FormButton>
+            <Button.FormButtonSet>
+              <Button.FormButton
+                block size='md'
+                background='grey'
+              ><Link to='/login'> Login </Link>
+              </Button.FormButton>
 
-            <Button.FormButton
-              block size='md'
-              background='grey'
-            ><Link to='/login'> Login </Link>
-            </Button.FormButton>
-
+              <Button.FormButton
+                block size='md'
+                background='Primary'
+                disabled={!validateForm()}
+              >
+                Sign Up
+              </Button.FormButton>
+            </Button.FormButtonSet>
           </Form>
         </SignupFormWrap>
       </Container>
@@ -102,10 +103,6 @@ const Signup = ({ history, props }) => {
 }
 
 export default withRouter(Signup)
-
-const H1WithMarginBottom = styled(Text.H1)`
-  margin-bottom: 25px;
-`
 
 const SignupFormWrap = styled(Layout.FormWrap)`
   height: 450px;
