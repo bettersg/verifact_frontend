@@ -30,16 +30,20 @@ export const FormWrap = styled.div`
   }
 
 `
+
 export const FormControl = styled(Form.Control)`
-  height: 45px;
-  background: #FFFFFF !important;
   border: 1px solid #E5E5E5;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 15px;
-  color: #464646;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: var(--TextPrimary);
   font-style: normal;
   font-weight: normal;
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  display: block;
+  width: 100%;
+
+  :is(input) {
+    height: 5rem
+  }
 `

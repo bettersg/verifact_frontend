@@ -37,8 +37,6 @@ function AskQuestion () {
     }
   })
 
-  console.log(errors)
-
   return (
     <Container>
       <Layout.FormWrap>
@@ -54,6 +52,7 @@ function AskQuestion () {
             label='Question'
             onChange={handleChange}
             error={errors.text}
+            inputProps={{ as: 'textarea', rows: 3 }}
           />
 
           <TextInput
