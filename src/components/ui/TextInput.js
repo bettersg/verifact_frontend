@@ -13,10 +13,11 @@ function TextInput ({
   if (!inputProps) inputProps = {}
 
   return (
-    <Form.Group size='lg' controlId={id}>
-      {label && <Form.Label>{label}</Form.Label>}
+    <Form.Group size='lg'>
+      {label && <Form.Label htmlFor={id}>{label}</Form.Label>}
 
       <Layout.FormControl
+        id={id}
         type='text'
         isInvalid={!!error}
         onChange={onChange}

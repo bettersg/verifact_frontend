@@ -9,7 +9,6 @@ function _validateInput (input, required, setErrors) {
   const errors = {}
   let valid = true
   for (const key in input) {
-    console.log(key)
     if (required.includes(key) && !input[key]) {
       errors[key] = `${camelToSentenceCase(key)} can not be blank`
       valid = false
@@ -24,19 +23,19 @@ function _validateInput (input, required, setErrors) {
 
 function handleServerErrors (serverErrors, setErrors) {
   console.warn(serverErrors)
+  const error = serverErrors && serverErrors[0]
 
-  if (serverErrors &&
-    Array.isArray(serverErrors) &&
-    serverErrors[0]
-   ) {
-    if (serverErrors[0].detail) {
-      const details = serverErrors[0].detail
+  if (error && Array.isArray(serverErrors)) {
+    if (error.detail) {
+      const details = error.detail
       const keys = Object.keys(details)
       const errors = {}
       for (let i = 0; i < keys.length; i++) {
         errors[keys[i]] = `${camelToSentenceCase(keys[i])} ${details[keys[i]]}`
       }
       setErrors(errors)
+    } else if (error.message) {
+      setErrors({ form: error.message })
     }
   }
 }
@@ -60,18 +59,14 @@ function useForm ({
     return () => { ref.current = false }
   }, [])
 
-  function resetForm () {
-    setInput(defaultInput)
-    setErrors({})
-  }
-
   function validateInput () {
     return _validateInput(input, required, setErrors)
   }
 
-  function handleChange (name, value) {
+  function handleChange (e) {
+    const { id, value } = e.target
     const newInput = Object.assign({}, input)
-    newInput[name] = value
+    newInput[id] = value
     setInput(newInput)
   }
 
@@ -85,13 +80,12 @@ function useForm ({
       const variables = Object.assign(
         {}, vars, { input: finalInput }
       )
-      const response = await mutate({ mutation, variables })
+      const response = await mutate(mutation, variables)
       afterSubmit && afterSubmit(response)
     } catch (serverErrors) {
       handleServerErrors(serverErrors, setErrors)
     } finally {
       if (ref.current) {
-        if (!noResetOnSubmit) resetForm()
         setIsLoading(false)
       }
     }
@@ -100,7 +94,6 @@ function useForm ({
   return {
     input,
     errors,
-    resetForm,
     isLoading,
     isChanged: !isEqual(defaultInput, input),
     handleChange,
