@@ -3,28 +3,18 @@ schema {
   mutation: Mutation
 }
 
-type AnswerConnection {
-  pageInfo: PageInfo!
-  edges: [AnswerEdge]!
-}
-
 input AnswerCreateInput {
-  answer: String
+  answer: String!
   text: String
-  citationUrl: String
+  citationUrl: Url
   citationTitle: String
-  questionId: ID
+  questionId: ID!
   clientMutationId: String
 }
 
 type AnswerCreatePayload {
   answer: AnswerNode
   clientMutationId: String
-}
-
-type AnswerEdge {
-  node: AnswerNode
-  cursor: String!
 }
 
 type AnswerNode implements Node {
@@ -34,9 +24,9 @@ type AnswerNode implements Node {
   text: String!
   citationUrl: String!
   citationTitle: String!
-  credibleCount: Int!
-  notCredibleCount: Int!
   question: QuestionNode!
+  user: UserType!
+  votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
 }
 
 type AnswerNodeConnection {
@@ -58,6 +48,7 @@ scalar GenericScalar
 type Mutation {
   questionCreate(input: QuestionCreateInput!): QuestionCreatePayload
   answerCreate(input: AnswerCreateInput!): AnswerCreatePayload
+  voteCreateUpdateDelete(input: VoteCreateUpdateDeleteInput!): VoteCreateUpdateDeletePayload
   userCreate(input: UserCreateInput!): UserCreatePayload
   userUpdate(input: UserUpdateInput!): UserUpdatePayload
   tokenAuth(input: ObtainJSONWebTokenInput!): ObtainJSONWebTokenPayload
@@ -91,7 +82,6 @@ type PageInfo {
 
 type Query {
   questions(before: String, after: String, first: Int, last: Int): QuestionConnection
-  answers(before: String, after: String, first: Int, last: Int): AnswerConnection
   node(id: ID!): Node
   viewer: UserType
 }
@@ -102,10 +92,10 @@ type QuestionConnection {
 }
 
 input QuestionCreateInput {
-  text: String
-  citationUrl: String
+  text: String!
+  citationUrl: Url!
   citationTitle: String
-  citationImageUrl: String
+  citationImageUrl: Url
   clientMutationId: String
 }
 
@@ -126,7 +116,18 @@ type QuestionNode implements Node {
   citationUrl: String!
   citationTitle: String!
   citationImageUrl: String!
+  user: UserType!
   answers(offset: Int, before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
+}
+
+type QuestionNodeConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionNodeEdge]!
+}
+
+type QuestionNodeEdge {
+  node: QuestionNode
+  cursor: String!
 }
 
 input RefreshInput {
@@ -140,6 +141,8 @@ type RefreshPayload {
   clientMutationId: String
   token: String!
 }
+
+scalar Url
 
 input UserCreateInput {
   username: String!
@@ -165,6 +168,9 @@ type UserType {
   isStaff: Boolean!
   isActive: Boolean!
   dateJoined: DateTime!
+  questions(offset: Int, before: String, after: String, first: Int, last: Int): QuestionNodeConnection!
+  answers(offset: Int, before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
+  votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
 }
 
 input UserUpdateInput {
@@ -186,4 +192,33 @@ input VerifyInput {
 type VerifyPayload {
   payload: GenericScalar!
   clientMutationId: String
+}
+
+input VoteCreateUpdateDeleteInput {
+  credible: Boolean
+  answerId: ID!
+  clientMutationId: String
+}
+
+type VoteCreateUpdateDeletePayload {
+  vote: VoteNode
+  clientMutationId: String
+}
+
+type VoteNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  user: UserType!
+  answer: AnswerNode!
+  credible: Boolean
+}
+
+type VoteNodeConnection {
+  pageInfo: PageInfo!
+  edges: [VoteNodeEdge]!
+}
+
+type VoteNodeEdge {
+  node: VoteNode
+  cursor: String!
 }

@@ -12,10 +12,15 @@ function AnswerCard ({ answer: answerNode }) {
     answer,
     text,
     citationUrl,
-    credibleCount,
-    notCredibleCount
+    votes
   } = answerNode
   const setColor = (answer === 'True')
+  let credibleCount = 0
+  let notCredibleCount = 0
+  votes.edges.forEach(({ node: vote }) => {
+    if (vote.credible) return credibleCount++
+    return notCredibleCount++
+  })
 
   return <AnswerCardWrap key={id}>
     <AnswerHeader children={answer} setColor={setColor} />
@@ -99,8 +104,14 @@ export default createFragmentContainer(
         text
         citationUrl
         citationTitle
-        credibleCount
-        notCredibleCount
+        votes {
+          edges {
+            node {
+              id
+              credible
+            }
+          }
+        }
       }
     `
   }
