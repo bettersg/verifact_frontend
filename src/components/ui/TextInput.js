@@ -8,11 +8,9 @@ function TextInput ({
   label,
   onChange,
   error,
-  inputProps
+  ...inputProps
 }) {
   if (!inputProps) inputProps = {}
-
-  console.log(!!error)
 
   return (
     <Form.Group size='lg'>
@@ -22,6 +20,7 @@ function TextInput ({
         id={id}
         type='text'
         isInvalid={!!error}
+        className={inputProps.as === 'textarea' && !!error && 'form-control is-invalid'}
         onChange={onChange}
         {...inputProps}
       />

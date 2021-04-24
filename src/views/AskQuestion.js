@@ -56,7 +56,8 @@ function AskQuestion () {
         label='Question'
         onChange={handleChange}
         error={errors.text}
-        inputProps={{ as: 'textarea', rows: 3 }}
+        as='textarea'
+        rows={3}
       />
 
       <TextInput
@@ -64,6 +65,7 @@ function AskQuestion () {
         label='Citation Url'
         onChange={handleChange}
         error={errors.citationUrl}
+        placeholder='https://www.verifact.sg'
       />
 
       <Button.FormButtonSet>
