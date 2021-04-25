@@ -59,7 +59,8 @@ export default function Question (props) {
                       All Answer
                     </H2TextWithoutMargin>
                   </>
-                  ) : (
+                  )
+                : (
                   <>
                     <H1TextWithMargin>
                       All Answer
@@ -69,7 +70,7 @@ export default function Question (props) {
                       <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
                     </CustomButton>
                   </>
-              )}
+                  )}
             </HeaderWrapper>
 
             {props.node.answers.edges.map(({ node }) => {
