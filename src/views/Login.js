@@ -1,14 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import styled from 'styled-components'
-
-import mutate from '../utils/mutate'
-import { AuthContext } from '../context/Auth'
-
 import graphql from 'babel-plugin-relay/macro'
 
-import { Form, Container } from 'react-bootstrap'
-import { Text, Button, Layout } from '../styles'
+import useForm from '../hooks/useForm'
+import { AuthContext } from '../context/Auth'
+import { Text, Button } from '../styles'
+import FullPageForm from '../components/ui/FullPageForm'
+import TextInput from '../components/ui/TextInput'
 
 const mutation = graphql`
   mutation LoginMutation($input: ObtainJSONWebTokenInput!){
@@ -19,87 +17,63 @@ const mutation = graphql`
 `
 
 const Login = ({ history, props }) => {
-  const [data, setData] = useState([])
-  const { username, password } = data
-  const [error, setError] = useState(null)
-  const value = useContext(AuthContext)
-
-  const validateForm = () => {
-    return data.password && data.username
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    const variables = {
-      input: {
-        username: username,
-        password: password
-      }
+  const value = React.useContext(AuthContext)
+  const {
+    errors,
+    handleChange,
+    handleSubmit,
+    isLoading
+  } = useForm({
+    mutation,
+    defaultInput: {
+      username: '',
+      password: ''
+    },
+    required: ['username', 'password'],
+    afterSubmit: res => {
+      value.logIn(res.tokenAuth.token)
+      history.push('/')
     }
-
-    mutate(mutation, variables)
-      .then(res => {
-        value.logIn(res.tokenAuth.token)
-        history.push('/')
-      })
-      .catch((e) => {
-        const { message } = e[0]
-        setError(message)
-      })
-  }
+  })
 
   return (
-    <>
-      <Container>
-        <ErrorMessage error={error}>{error}</ErrorMessage>
-        <LoginFormWrap>
-          <Text.H1>Log In</Text.H1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group size='lg' controlId='email'>
-              <Form.Label>Username</Form.Label>
-              <Layout.FormControl
-                type='text'
-                onChange={e => setData({ ...data, username: e.target.value })}
-              />
-            </Form.Group>
+    <FullPageForm
+      error={errors.form}
+      onSubmit={handleSubmit}
+    >
+      <Text.H1>Log In</Text.H1>
 
-            <Form.Group size='lg' controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Layout.FormControl
-                type='password'
-                onChange={e => setData({ ...data, password: e.target.value })}
-              />
-            </Form.Group>
+      <TextInput
+        id='username'
+        label='Username'
+        onChange={handleChange}
+        error={errors.username}
+      />
 
-            <Button.FormButtonSet>
-              <Button.FormButton
-                block size='md'
-                background='grey'
-              ><Link to='/signup'> Sign Up </Link>
-              </Button.FormButton>
+      <TextInput
+        id='password'
+        label='Password'
+        onChange={handleChange}
+        error={errors.password}
+      />
 
-              <Button.FormButton
-                block size='md'
-                background='Primary'
-                disabled={!validateForm()}
-              >
-                Log In
-              </Button.FormButton>
-            </Button.FormButtonSet>
-          </Form>
-        </LoginFormWrap>
-      </Container>
-    </>
+      <Button.FormButtonSet>
+        <Button.FormButton
+          block size='md'
+          background='grey'
+        ><Link to='/signup'> Sign Up </Link>
+        </Button.FormButton>
+
+        <Button.FormButton
+          block size='md'
+          background='Primary'
+          disabled={isLoading}
+        >
+          Log In
+        </Button.FormButton>
+      </Button.FormButtonSet>
+    </FullPageForm>
   )
 }
 
 export default withRouter(Login)
-
-const LoginFormWrap = styled(Layout.FormWrap)`
-  height: 400px;
-`
-
-const ErrorMessage = styled(Text.Error)`
-  opacity: ${(props) => props.error ? '1' : '0'}
-`
