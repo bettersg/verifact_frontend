@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 
@@ -48,27 +48,29 @@ export default function Question (props) {
             <QuestionCard key={questionId} question={props.node} visual />
 
             <HeaderWrapper enableForm={showAnswerForm}>
-              {showAnswerForm ? (
-                <React.Fragment>
-                  <FormWrapper >
-                    <SubmitAnswerForm close={close} questionId={questionId} />
-                  </FormWrapper>
+              {showAnswerForm
+                ? (
+                  <Fragment>
+                    <FormWrapper>
+                      <SubmitAnswerForm close={close} questionId={questionId} />
+                    </FormWrapper>
 
-                  <H2TextWithoutMargin>
-                    All Answer
-                  </H2TextWithoutMargin>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <H1TextWithMargin>
-                    All Answer
-                  </H1TextWithMargin>
+                    <H2TextWithoutMargin>
+                      All Answer
+                    </H2TextWithoutMargin>
+                  </Fragment>
+                ) : (
+                  <Fragment>
+                    <H1TextWithMargin>
+                      All Answer
+                    </H1TextWithMargin>
 
-                  <CustomButton onClick={open}>
-                    <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
-                  </CustomButton>
-                </React.Fragment>
-              )}
+                    <CustomButton onClick={open}>
+                      <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
+                    </CustomButton>
+                  </Fragment>
+                )
+              }
             </HeaderWrapper>
 
             {props.node.answers.edges.map(({ node }) => {
