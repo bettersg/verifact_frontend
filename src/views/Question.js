@@ -1,11 +1,11 @@
-import React, { useState } from "react"
-import styled from "styled-components"
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 
 import Query from '../components/Query'
-import QuestionCard from "../components/QuestionCard"
-import SubmitAnswerForm from "../components/SubmitAnswerForm"
-import AnswerCard from "../components/AnswerCard"
+import QuestionCard from '../components/QuestionCard'
+import SubmitAnswerForm from '../components/SubmitAnswerForm'
+import AnswerCard from '../components/AnswerCard'
 import { Text, Button } from '../styles'
 
 const query = graphql`
@@ -26,8 +26,7 @@ const query = graphql`
   }
 `
 
-export default function Question (props)
-{
+export default function Question (props) {
   const questionId = props.match.params.id
   const [showAnswerForm, setShowAnswerForm] = useState(false)
 
@@ -50,19 +49,25 @@ export default function Question (props)
 
             <HeaderWrapper enableForm={showAnswerForm}>
               {showAnswerForm ? (
-                <>
+                <React.Fragment>
                   <FormWrapper >
                     <SubmitAnswerForm close={close} questionId={questionId} />
                   </FormWrapper>
-                  <H2TextWithoutMargin children="All Answer" />
-                </>
+
+                  <H2TextWithoutMargin>
+                    All Answer
+                  </H2TextWithoutMargin>
+                </React.Fragment>
               ) : (
-                <>
-                  <H1TextWithMargin children="All Answer" />
+                <React.Fragment>
+                  <H1TextWithMargin>
+                    All Answer
+                  </H1TextWithMargin>
+
                   <CustomButton onClick={open}>
                     <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
                   </CustomButton>
-                </>
+                </React.Fragment>
               )}
             </HeaderWrapper>
 
@@ -101,7 +106,7 @@ const HeaderWrapper = styled.div`
   margin-bottom: 3rem;
   grid-template-rows: auto auto;
 
-  ${({ enableForm }) => enableForm ? null : `
+  ${({ enableForm }) => !enableForm && `
     grid-template-columns: auto auto;
   `}
 `
