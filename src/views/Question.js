@@ -52,7 +52,7 @@ export default function Question (props)
               {showAnswerForm ? (
                 <>
                   <FormWrapper >
-                    <SubmitAnswerForm close={close} questionID={questionId} />
+                    <SubmitAnswerForm close={close} questionId={questionId} />
                   </FormWrapper>
                   <H2TextWithoutMargin children="All Answer" />
                 </>

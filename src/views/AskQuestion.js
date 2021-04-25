@@ -26,7 +26,6 @@ function AskQuestion () {
     isLoading
   } = useForm({
     mutation,
-    vars: {},
     defaultInput: {
       text: '',
       citationUrl: '',
@@ -34,8 +33,8 @@ function AskQuestion () {
       citationImageUrl: ''
     },
     required: ['text', 'citationUrl'],
-    afterSubmit: response => {
-      const id = response.questionCreate.question.id
+    afterSubmit: res => {
+      const id = res.questionCreate.question.id
       history.push(`/question/${id}`)
     }
   })
@@ -65,7 +64,7 @@ function AskQuestion () {
         label='Citation Url'
         onChange={handleChange}
         error={errors.citationUrl}
-        placeholder='https://www.verifact.sg'
+        placeholder='https://www.verifact.sg/article-123'
       />
 
       <Button.FormButtonSet>

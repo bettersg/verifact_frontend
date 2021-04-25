@@ -42,6 +42,7 @@ function useForm ({
   const [input, setInput] = useState(defaultInput)
   const [errors, setErrors] = useState({})
   const ref = useRef(false)
+  if (!vars) vars = {}
 
   useEffect(() => {
     ref.current = true

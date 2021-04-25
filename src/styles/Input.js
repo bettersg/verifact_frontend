@@ -11,12 +11,12 @@ export const InputText = styled.input`
 
 export const Radio = styled(Form.Check)`
   height: 24px;
-  margin: 0 0.7rem 0 0;
+  margin-right: 2rem;
   padding: 0;
   cursor: pointer;
 
   input[type='radio'] {
-    margin: 0;
+    margin-right: 0.5rem;
     width: 2.8rem;
     height: 2.8rem;
   }

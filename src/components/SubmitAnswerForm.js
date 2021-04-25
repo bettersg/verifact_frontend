@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form } from 'react-bootstrap'
 import styled from 'styled-components'
 import { graphql } from 'babel-plugin-relay/macro'
 
+import useForm from '../hooks/useForm'
 import { Text, Button, Input } from '../styles'
-import mutate from '../utils/mutate'
+import TextInput from './ui/TextInput'
 
 const mutation = graphql`
   mutation SubmitAnswerFormMutation($input: AnswerCreateInput!){
@@ -19,151 +20,105 @@ const mutation = graphql`
   }
 `
 
-export default function SubmitAnswerForm (props) {
-  const { close, questionID } = props
-  const [answer, setAnswer] = useState('True')
-  const [articleLink, setArticleLink] = useState('')
-  const [statement, setStatement] = useState('')
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    const variables = {
-      'input': {
-        'answer': answer,
-        'text': statement,
-        'citationUrl': articleLink,
-        'citationTitle': articleLink,
-        'questionId': questionID
-      }
-    }
-    await mutate(mutation, variables)
-    close()
-  }
+export default function SubmitAnswerForm ({ close, questionId }) {
+  const {
+    errors,
+    handleChange,
+    handleSubmit,
+    isLoading
+  } = useForm({
+    mutation,
+    defaultInput: {
+      answer: 'True',
+      text: '',
+      citationUrl: '',
+      questionId
+    },
+    required: ['text', 'citationUrl'],
+    afterSubmit: close
+  })
 
   return (
-    <MainWrapper>
-      <div>
-        <Text.H1>Answer the Question</Text.H1>
-      </div>
+    <Wrap>
+      <Text.H1>Answer the Question</Text.H1>
 
-      <FormWrap id='answerForm' onSubmit={handleSubmit}>
-        <FormGroup>
-          <TDIV>
-            <div>
-              <Input.Radio
-                defaultChecked
-                type='radio'
-                name='formHorizontalRadios'
-                id='formHorizontalRadios1'
-                onClick={() => setAnswer('True')}
-              />
-            </div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Input.Radio
+            defaultChecked
+            inline
+            id='answerTrue'
+            type='radio'
+            name='answer'
+            value='True'
+            label='True'
+            onChange={handleChange}
+          />
 
-            <div>
-              <FormOptionLabel>True</FormOptionLabel>
-            </div>
-          </TDIV>
+          <Input.Radio
+            inline
+            id='answerFalse'
+            label='False'
+            type='radio'
+            name='answer'
+            value='False'
+            onChange={handleChange}
+          />
 
-          <TDIV>
-            <div>
-              <Input.Radio
-                inline
-                type='radio'
-                name='formHorizontalRadios'
-                id='formHorizontalRadios2'
-                onClick={() => setAnswer('False')}
-              />
-            </div>
+          <Input.Radio
+            inline
+            id='answerNeither'
+            label='Uncertain'
+            type='radio'
+            name='answer'
+            value='Neither'
+            onChange={handleChange}
+          />
+        </Form.Group>
 
-            <div>
-              <FormOptionLabel>False</FormOptionLabel>
-            </div>
-          </TDIV>
+        <TextInput
+          id='text'
+          label='Explain your answer'
+          placeholder='My supporting evidence is...'
+          as='textarea'
+          rows={3}
+          onChange={handleChange}
+          error={errors.text}
+        />
 
-          <TDIV>
-            <div>
-              <Input.Radio
-                inline
-                type='radio'
-                name='formHorizontalRadios'
-                id='formHorizontalRadios3'
-                onClick={() => setAnswer('Neither')}
-              />
-            </div>
-            <div>
-              <FormOptionLabel>Uncertain</FormOptionLabel>
-            </div>
-          </TDIV>
-        </FormGroup>
+        <TextInput
+          id='citationUrl'
+          label='Citation Url'
+          placeholder='https://www.verifact.sg/article-123'
+          onChange={handleChange}
+          error={errors.citationUrl}
+        />
 
-        <FormTextWrap>
-          <FormSubLabel>Explain your answer</FormSubLabel>
-          <Input.InputText height={'12.8rem'} onChange={(e) => setStatement(e.target.value)} as='textarea' placeholder='For example x, y and z' required />
-        </FormTextWrap>
-
-        <FormTextWrap>
-          <FormSubLabel>Citation (News URL)</FormSubLabel>
-          <Input.InputText height={'5rem'} onChange={(e) => setArticleLink(e.target.value)} type='text' placeholder='https://example.com/article' required />
-        </FormTextWrap>
-
-        <ButtonWrapper>
-          <Button.FormButton background={'none'} type='button' onClick={close}>
-              Cancel
+        <Button.FormButtonSet>
+          <Button.FormButton
+            background='none'
+            type='button'
+            onClick={close}
+          >
+            Cancel
           </Button.FormButton>
 
-          <Button.FormButton type='submit' form='answerForm'>
-            <Text.ParagraphStrong>Submit Answer</Text.ParagraphStrong>
+          <Button.FormButton
+            type='submit'
+            disabled={isLoading}
+          >
+            Submit Answer
           </Button.FormButton>
-        </ButtonWrapper>
-      </FormWrap>
-    </MainWrapper>
+        </Button.FormButtonSet>
+      </Form>
+    </Wrap>
   )
 }
 
-const TDIV = styled.div`
-    display: flex;
-    align-items: center;
-`
-
-const FormGroup = styled(Form.Group)`
-    display: flex;
-    gap: 2rem;
-`
-
-const MainWrapper = styled.div`
-    display: grid;
-    width: 55rem;
-    row-gap: 3rem;
-    padding: 5rem;
-    background: #EEF0F2;
-    border-radius: 2rem;
-`
-
-const FormWrap = styled(Form)`
-    display: grid;
-    row-gap: 3rem;
-`
-
-const ButtonWrapper = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2,auto);
-    gap: 1rem;
-    justify-content: end;
-`
-
-const FormTextWrap = styled.div`
-    display: grid;
-    grid-gap: 0.5rem;
-`
-
-const FormSubLabel = styled(Text.Small)`
-    font-weight: 600;
-    font-size: 1.6rem;
-`
-
-const FormOptionLabel = styled(Text.Small)`
-    font-family: Roboto;
-    font-weight: 500;
-    font-size: 1.6rem;
+const Wrap = styled.div`
+  width: 55rem;
+  margin: 0 auto;
+  padding: 5rem;
+  background: var(--Background);
+  border-radius: 2rem;
 `
