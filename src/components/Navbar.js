@@ -3,7 +3,11 @@ import styled from 'styled-components'
 import { Navbar, Nav, Button } from 'react-bootstrap'
 import Logo from '../assets/VeriFactLogo.svg'
 
-export default props => {
+import { AuthContext } from '../context/Auth'
+
+export default (props) => {
+  const authValue = React.useContext(AuthContext)
+  const handleLogOut = authValue.logOut
   return (
     <CustomNavbar sticky='top' collapseOnSelect expand='md'>
       <Navbar.Brand href='/' style={{ color: '#30323D', fontSize: '1.9rem' }}>
@@ -17,15 +21,17 @@ export default props => {
         style={{ backgroundColor: 'white' }}
       >
         <Nav style={{ alignItems: 'center' }}>
-          <Nav.Link style={{ color: '#30323D' }} href='login'>
-            Log In
-          </Nav.Link>
-          <Nav.Link style={{ color: '#30323D' }} href='signup'>
-            Sign Up
-          </Nav.Link>
-          <Nav.Link href='/askquestion'>
+          {authValue.isLoggedIn
+            ? <NavLink onClick={handleLogOut}>Log Out</NavLink>
+            : (
+              <>
+                <NavLink href='/login'>Log In</NavLink>
+                <NavLink href='/signup'>Sign Up</NavLink>
+              </>
+          )}
+          <NavLink href='/askquestion'>
             <CustomButton>Ask a Question</CustomButton>
-          </Nav.Link>
+          </NavLink>
         </Nav>
       </Navbar.Collapse>
     </CustomNavbar>
@@ -43,10 +49,9 @@ const CustomNavbar = styled(Navbar)`
     padding: 1.1rem 2.8rem;
   }
 `
-
 const CustomButton = styled(Button)`
-  background-color: #eef0f2;
-  color: #30323d;
+  background-color: #EEF0F2;
+  color: var(--TextPrimary);
   border: none;
   border-radius: 1rem;
   padding: 1rem 1.5rem;
@@ -55,6 +60,10 @@ const CustomButton = styled(Button)`
   font-size: 1.4rem;
   &:hover {
     background-color: lightgrey;
-    color: #30323d;
+    color: var(--TextPrimary);
   }
+`
+
+const NavLink = styled(Nav.Link)`
+  color: var(--TextPrimary) !important;
 `

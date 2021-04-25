@@ -5,10 +5,12 @@ import {
   Store
 } from 'relay-runtime'
 
+import { getJwToken } from '../utils/auth'
+
 const API_HOST = process.env.REACT_APP_API_HOST || 'http://localhost:8000'
 
 const fetchQuery = async (operation, variables) => {
-  return fetch(API_HOST + '/graphql', {
+  const request = {
     method: 'POST',
     body: JSON.stringify({
       query: operation.text,
@@ -17,7 +19,10 @@ const fetchQuery = async (operation, variables) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(response => {
+  }
+  const jwToken = await getJwToken()
+  if (jwToken) request.headers.Authorization = `JWT ${jwToken}`
+  return fetch(API_HOST + '/graphql', request).then(response => {
     return response.json()
   })
 }

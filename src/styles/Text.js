@@ -34,3 +34,14 @@ export const ParagraphStrong = styled.p`
   font-weight: bold;
   margin: 0;
 `
+
+export const Error = styled.p`
+  margin: 5rem auto 3rem auto;
+  font-weight: bold;
+  text-align: center;
+  color: var(--TextError);
+  white-space: nowrap;
+  overflow: hidden;
+  width: 60%;
+  text-overflow: ellipsis;
+`
