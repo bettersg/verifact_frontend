@@ -52,6 +52,7 @@ function AskQuestion () {
 
       <TextInput
         id='text'
+        name='text'
         label='Question'
         onChange={handleChange}
         error={errors.text}
@@ -61,6 +62,7 @@ function AskQuestion () {
 
       <TextInput
         id='citationUrl'
+        name='citationUrl'
         label='Citation Url'
         onChange={handleChange}
         error={errors.citationUrl}

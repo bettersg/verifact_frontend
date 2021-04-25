@@ -45,6 +45,7 @@ const Signup = ({ history }) => {
 
       <TextInput
         id='username'
+        name='username'
         label='Username'
         placeholder='jane_doe'
         onChange={handleChange}
@@ -53,6 +54,7 @@ const Signup = ({ history }) => {
 
       <TextInput
         id='email'
+        name='email'
         label='Email'
         placeholder='jane@verifact.sg'
         onChange={handleChange}
@@ -61,7 +63,9 @@ const Signup = ({ history }) => {
 
       <TextInput
         id='password'
+        name='password'
         label='Password'
+        type='password'
         placeholder='********'
         onChange={handleChange}
         error={errors.password}

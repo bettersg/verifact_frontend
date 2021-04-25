@@ -13,16 +13,20 @@ export const Radio = styled(Form.Check)`
   height: 24px;
   margin-right: 2rem;
   padding: 0;
-  cursor: pointer;
 
-  input[type='radio'] {
+  input,
+  label {
+    cursor: pointer;
+  }
+
+  input {
     margin-right: 0.5rem;
     width: 2.8rem;
     height: 2.8rem;
-  }
 
-  input[type='radio']:checked {
-    background-color: var(--Primary);
-    height: 2.8rem;
+    &:checked {
+      background-color: var(--Primary);
+      height: 2.8rem;
+    }
   }
 `

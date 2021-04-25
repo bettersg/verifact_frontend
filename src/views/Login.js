@@ -45,6 +45,7 @@ const Login = ({ history }) => {
 
       <TextInput
         id='username'
+        name='username'
         label='Username'
         placeholder='jane_doe'
         onChange={handleChange}
@@ -53,7 +54,9 @@ const Login = ({ history }) => {
 
       <TextInput
         id='password'
+        name='password'
         label='Password'
+        type='password'
         placeholder='********'
         onChange={handleChange}
         error={errors.password}

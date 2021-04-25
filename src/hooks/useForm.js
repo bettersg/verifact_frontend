@@ -54,9 +54,9 @@ function useForm ({
   }
 
   function handleChange (e) {
-    const { id, value } = e.target
+    const { name, value } = e.target
     const newInput = Object.assign({}, input)
-    newInput[id] = value
+    newInput[name] = value
     setInput(newInput)
   }
 
