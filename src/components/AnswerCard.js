@@ -22,31 +22,41 @@ function AnswerCard ({ answer: answerNode }) {
     return notCredibleCount++
   })
 
-  return <AnswerCardWrap key={id}>
-    <AnswerHeader children={answer} setColor={setColor} />
-    <Text.Small>Answered by <b>DEMO</b> </Text.Small>
-    <Text.Small children={text} />
-    <MediaWrap>
-      <div>
-        <FiArrowUpRight size={10} />
-        <MediaLink onClick={event => { event.stopPropagation() }} href={citationUrl} >{citationUrl}</MediaLink>
-      </div>
-    </MediaWrap>
-    <ButtonWrap>
-      <Button.VoteButton background={'Green'}>
-        <VoteButtonInnerWrap>
-          <Text.SmallStrong children={credibleCount} />
-          <Text.Small>Credible</Text.Small>
-        </VoteButtonInnerWrap>
-      </Button.VoteButton>
-      <Button.VoteButton background={'Red'}>
-        <VoteButtonInnerWrap>
-          <Text.SmallStrong children={notCredibleCount} />
-          <Text.Small>Not Credible</Text.Small>
-        </VoteButtonInnerWrap>
-      </Button.VoteButton>
-    </ButtonWrap>
-  </AnswerCardWrap>
+  return (
+    <AnswerCardWrap key={id}>
+      <AnswerHeader setColor={setColor}>
+        {answer}
+      </AnswerHeader>
+
+      <Text.Small>Answered by <b>DEMO</b> </Text.Small>
+      <Text.Small>{text}</Text.Small>
+      <MediaWrap>
+        <div>
+          <FiArrowUpRight size={10} />
+          <MediaLink
+            onClick={e => e.stopPropagation()}
+            href={citationUrl}
+          >
+            {citationUrl}
+          </MediaLink>
+        </div>
+      </MediaWrap>
+      <ButtonWrap>
+        <Button.VoteButton background={'Green'}>
+          <VoteButtonInnerWrap>
+            <Text.SmallStrong>{credibleCount}</Text.SmallStrong>
+            <Text.Small>Credible</Text.Small>
+          </VoteButtonInnerWrap>
+        </Button.VoteButton>
+        <Button.VoteButton background={'Red'}>
+          <VoteButtonInnerWrap>
+            <Text.SmallStrong>{notCredibleCount}</Text.SmallStrong>
+            <Text.Small>Not Credible</Text.Small>
+          </VoteButtonInnerWrap>
+        </Button.VoteButton>
+      </ButtonWrap>
+    </AnswerCardWrap>
+  )
 }
 
 const AnswerCardWrap = styled.div`
