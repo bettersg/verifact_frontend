@@ -16,7 +16,7 @@ const mutation = graphql`
   }
 `
 
-const Login = ({ history, props }) => {
+const Login = ({ history }) => {
   const value = React.useContext(AuthContext)
   const {
     errors,
@@ -46,6 +46,7 @@ const Login = ({ history, props }) => {
       <TextInput
         id='username'
         label='Username'
+        placeholder='jane_doe'
         onChange={handleChange}
         error={errors.username}
       />
@@ -53,6 +54,7 @@ const Login = ({ history, props }) => {
       <TextInput
         id='password'
         label='Password'
+        placeholder='********'
         onChange={handleChange}
         error={errors.password}
       />

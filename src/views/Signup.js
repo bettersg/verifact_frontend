@@ -1,113 +1,89 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import styled from 'styled-components'
-
-import mutate from '../utils/mutate'
 import graphql from 'babel-plugin-relay/macro'
 
-import { Form, Container } from 'react-bootstrap'
-import { Text, Button, Layout } from '../styles'
+import useForm from '../hooks/useForm'
+import { Text, Button } from '../styles'
+import FullPageForm from '../components/ui/FullPageForm'
+import TextInput from '../components/ui/TextInput'
 
 const mutation = graphql`
   mutation SignupMutation($input: UserCreateInput!){
-    userCreate(input: $input){
-            user {
-                id
-            }
-        }
-    }
-`
-
-const Signup = ({ history, props }) => {
-  const [data, setData] = useState([])
-  const { username, email, password } = data
-  const [error, setError] = useState(null)
-
-  const validateForm = () => {
-    return data.email && data.password && data.username
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    const variables = {
-      input: {
-        username: username,
-        email: email,
-        password: password
+    userCreate(input: $input) {
+      user {
+        id
       }
     }
-
-    mutate(mutation, variables)
-      .then(() => { history.push('/login') })
-      .catch((e) => {
-        const message = e[0].message
-        setError(message)
-      })
   }
+`
+
+const Signup = ({ history }) => {
+  const {
+    errors,
+    handleChange,
+    handleSubmit,
+    isLoading
+  } = useForm({
+    mutation,
+    defaultInput: {
+      username: '',
+      email: '',
+      password: ''
+    },
+    required: ['username', 'email', 'password'],
+    afterSubmit: res => {
+      history.push('/login')
+    }
+  })
 
   return (
-    <>
-      <Container>
-        <SignupErrorMessage error={error}>{error}</SignupErrorMessage>
-        <SignupFormWrap>
-          <Text.H1>Sign Up</Text.H1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group size='lg' controlId='email'>
-              <Form.Label>Username</Form.Label>
-              <Layout.FormControl
-                type='text'
-                onChange={e => setData({ ...data, username: e.target.value })}
-                className='form'
-              />
-            </Form.Group>
+    <FullPageForm
+      error={errors.form}
+      onSubmit={handleSubmit}
+    >
+      <Text.H1>Sign Up</Text.H1>
 
-            <Form.Group size='lg' controlId='email'>
-              <Form.Label>Email</Form.Label>
-              <Layout.FormControl
-                type='email'
-                onChange={e => setData({ ...data, email: e.target.value })}
-                className='form'
-              />
-            </Form.Group>
+      <TextInput
+        id='username'
+        label='Username'
+        placeholder='jane_doe'
+        onChange={handleChange}
+        error={errors.username}
+      />
 
-            <Form.Group size='lg' controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Layout.FormControl
-                type='password'
-                onChange={e => setData({ ...data, password: e.target.value })}
-                className='form'
-              />
-            </Form.Group>
+      <TextInput
+        id='email'
+        label='Email'
+        placeholder='jane@verifact.sg'
+        onChange={handleChange}
+        error={errors.email}
+      />
 
-            <Button.FormButtonSet>
-              <Button.FormButton
-                block size='md'
-                background='grey'
-              ><Link to='/login'> Login </Link>
-              </Button.FormButton>
+      <TextInput
+        id='password'
+        label='Password'
+        placeholder='********'
+        onChange={handleChange}
+        error={errors.password}
+      />
 
-              <Button.FormButton
-                block size='md'
-                background='Primary'
-                disabled={!validateForm()}
-              >
-                Sign Up
-              </Button.FormButton>
-            </Button.FormButtonSet>
-          </Form>
-        </SignupFormWrap>
-      </Container>
-    </>
+      <Button.FormButtonSet>
+        <Button.FormButton
+          block size='md'
+          background='grey'
+        ><Link to='/login'> Log In </Link>
+        </Button.FormButton>
+
+        <Button.FormButton
+          block size='md'
+          background='Primary'
+          disabled={isLoading}
+        >
+          Sign Up
+        </Button.FormButton>
+      </Button.FormButtonSet>
+    </FullPageForm>
   )
 }
 
 export default withRouter(Signup)
-
-const SignupFormWrap = styled(Layout.FormWrap)`
-  height: 450px;
-`
-
-const SignupErrorMessage = styled(Text.Error)`
-  opacity: ${(props) => props.error ? '1' : '0'}
-`
