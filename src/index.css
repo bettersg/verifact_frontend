@@ -1,17 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap');
 
-* { box-sizing: border-box }
+* { box-sizing: border-box; }
 
-html{
+html {
   font-size: 10px;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  color: #30323D;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: #30323d;
   font-size: 1.6rem;
   line-height: 1.91rem;
   -webkit-font-smoothing: antialiased;
@@ -19,8 +17,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 img {
@@ -31,19 +28,19 @@ a {
   color: #30323D;
 }
 
-a:hover{
-  color: #30323D;
+a:hover {
+  color: #30323d;
   text-decoration: none;
 }
 
 :root {
-  --Red: #E55934;
-  --Green: #23BE7B;
-  --Primary: #FFB800;
+  --Red: #e55934;
+  --Green: #23be7b;
+  --Primary: #ffb800;
   --Disabled: #414141;
-  --TextError: #E55934;
-  --TextPrimary: #30323D;
+  --TextError: #e55934;
+  --TextPrimary: #30323d;
   --TextDisabled: #414141;
-  --Border: #6C718A;
-  --Background: #EEF0F2;
+  --Border: #6c718a;
+  --Background: #eef0f2;
 }
