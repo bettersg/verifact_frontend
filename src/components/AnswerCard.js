@@ -42,13 +42,13 @@ function AnswerCard ({ answer: answerNode }) {
         </div>
       </MediaWrap>
       <ButtonWrap>
-        <Button.VoteButton background={'Green'}>
+        <Button.VoteButton background='Green'>
           <VoteButtonInnerWrap>
             <Text.SmallStrong>{credibleCount}</Text.SmallStrong>
             <Text.Small>Credible</Text.Small>
           </VoteButtonInnerWrap>
         </Button.VoteButton>
-        <Button.VoteButton background={'Red'}>
+        <Button.VoteButton background='Red'>
           <VoteButtonInnerWrap>
             <Text.SmallStrong>{notCredibleCount}</Text.SmallStrong>
             <Text.Small>Not Credible</Text.Small>
@@ -68,7 +68,7 @@ const AnswerCardWrap = styled.div`
 const AnswerHeader = styled(Text.H2)`
   margin: 0;
   text-transform: uppercase;
-  color: ${({ setColor }) => setColor ? `var(--Green)` : `var(--Red)`};
+  color: ${({ setColor }) => setColor ? 'var(--Green)' : 'var(--Red)'};
 `
 
 const MediaWrap = styled.div`
