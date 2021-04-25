@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 
@@ -50,7 +50,7 @@ export default function Question (props) {
             <HeaderWrapper enableForm={showAnswerForm}>
               {showAnswerForm
                 ? (
-                  <Fragment>
+                  <>
                     <FormWrapper>
                       <SubmitAnswerForm close={close} questionId={questionId} />
                     </FormWrapper>
@@ -58,9 +58,9 @@ export default function Question (props) {
                     <H2TextWithoutMargin>
                       All Answer
                     </H2TextWithoutMargin>
-                  </Fragment>
-                ) : (
-                  <Fragment>
+                  </>
+                  ) : (
+                  <>
                     <H1TextWithMargin>
                       All Answer
                     </H1TextWithMargin>
@@ -68,9 +68,8 @@ export default function Question (props) {
                     <CustomButton onClick={open}>
                       <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
                     </CustomButton>
-                  </Fragment>
-                )
-              }
+                  </>
+              )}
             </HeaderWrapper>
 
             {props.node.answers.edges.map(({ node }) => {

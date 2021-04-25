@@ -48,7 +48,9 @@
     "globals": [
       "fetch",
       "localStorage",
-      "URL"
+      "URL",
+      "<>",
+      "</>"
     ]
   }
 }
