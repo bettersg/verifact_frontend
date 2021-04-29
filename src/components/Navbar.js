@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Navbar, Nav, Button } from 'react-bootstrap'
+import Logo from '../assets/VeriFactLogo.svg'
+
 import { AuthContext } from '../context/Auth'
 
 export default (props) => {
@@ -8,19 +10,25 @@ export default (props) => {
   const handleLogOut = authValue.logOut
   return (
     <CustomNavbar sticky='top' collapseOnSelect expand='md'>
-      <Navbar.Brand href='/' style={{ color: '#30323D', fontSize: '1.9rem' }}>SG VERIFACT</Navbar.Brand>
+      <Navbar.Brand href='/' style={{ color: '#30323D', fontSize: '1.9rem' }}>
+        <img src={Logo} className='mr-2' alt='VeriFact logo' height='25rem' />
+        SG VERIFACT
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-      <Navbar.Collapse id='responsive-navbar-nav' style={{ backgroundColor: 'white' }}>
-        <Nav className='float-left' />
+      <Navbar.Collapse
+        id='responsive-navbar-nav'
+        className='justify-content-end'
+        style={{ backgroundColor: 'white' }}
+      >
         <Nav style={{ alignItems: 'center' }}>
           {authValue.isLoggedIn
-            ? (<NavLink onClick={handleLogOut}>Log Out</NavLink>)
+            ? <NavLink onClick={handleLogOut}>Log Out</NavLink>
             : (
               <>
                 <NavLink href='/login'>Log In</NavLink>
                 <NavLink href='/signup'>Sign Up</NavLink>
               </>
-              )}
+          )}
           <NavLink href='/askquestion'>
             <CustomButton>Ask a Question</CustomButton>
           </NavLink>
@@ -37,7 +45,6 @@ const CustomNavbar = styled(Navbar)`
   font-weight: bold;
   font-size: 1.4rem;
   box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.08);
-  
   @media (max-width: 767px) {
     padding: 1.1rem 2.8rem;
   }
@@ -51,7 +58,7 @@ const CustomButton = styled(Button)`
   transition-duration: 0.4s;
   font-weight: bold;
   font-size: 1.4rem;
-  &:hover{
+  &:hover {
     background-color: lightgrey;
     color: var(--TextPrimary);
   }
