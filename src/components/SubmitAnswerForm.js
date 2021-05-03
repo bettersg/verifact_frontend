@@ -70,7 +70,7 @@ export default function SubmitAnswerForm ({ close, questionId }) {
         <Input.Radio
           inline
           id='answerNeither'
-          label='Uncertain'
+          label='Neither'
           type='radio'
           name='answer'
           value='Neither'
