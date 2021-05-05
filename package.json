@@ -47,7 +47,10 @@
   "standard": {
     "globals": [
       "fetch",
-      "localStorage"
+      "localStorage",
+      "URL",
+      "<>",
+      "</>"
     ]
   }
 }

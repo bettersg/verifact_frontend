@@ -2,7 +2,6 @@ import { Form } from 'react-bootstrap'
 import styled from 'styled-components'
 
 export const InputText = styled.input`
-    font-family: Open Sans;
     border-radius: 1rem;
     border: 1px solid #E5E5E5;
     padding: 1.8rem 1.4rem;
@@ -12,18 +11,22 @@ export const InputText = styled.input`
 
 export const Radio = styled(Form.Check)`
   height: 24px;
-  margin: 0 0.7rem 0 0;
+  margin-right: 2rem;
   padding: 0;
-  cursor: pointer;
 
-  input[type='radio'] {
-    margin: 0;
-    width: 2.8rem;
-    height: 2.8rem;
+  input,
+  label {
+    cursor: pointer;
   }
 
-  input[type='radio']:checked {
-    background-color: var(--Primary);
+  input {
+    margin-right: 0.5rem;
+    width: 2.8rem;
     height: 2.8rem;
+
+    &:checked {
+      background-color: var(--Primary);
+      height: 2.8rem;
+    }
   }
 `
