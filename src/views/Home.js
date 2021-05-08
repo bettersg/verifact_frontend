@@ -32,7 +32,7 @@ const List = styled.div`
 
 function Home () {
   return (
-    <React.Fragment>
+    <>
       <Hero />
 
       <PageWrap>
@@ -49,7 +49,7 @@ function Home () {
           }}
         />
       </PageWrap>
-    </React.Fragment>
+    </>
   )
 }
 

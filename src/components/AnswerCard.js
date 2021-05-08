@@ -20,8 +20,7 @@ const mutation = graphql`
   }
 `
 
-function AnswerCard ({ answer: answerNode })
-{
+function AnswerCard ({ answer: answerNode }) {
   const {
     id,
     answer,
@@ -32,19 +31,17 @@ function AnswerCard ({ answer: answerNode })
   const setColor = (answer === 'True')
   let credibleCount = 0
   let notCredibleCount = 0
-  votes.edges.forEach(({ node: vote }) =>
-  {
+  votes.edges.forEach(({ node: vote }) => {
     if (vote.credible) return credibleCount++
     return notCredibleCount++
   })
 
-  const vote = async (voteStatus) =>
-  {
+  const vote = async (voteStatus) => {
     console.log('eneter')
-    var variables = {
-      'input': {
-        'answerId': id,
-        'credible': voteStatus
+    const variables = {
+      input: {
+        answerId: id,
+        credible: voteStatus
       }
     }
     await mutate(mutation, variables)
@@ -70,7 +67,7 @@ function AnswerCard ({ answer: answerNode })
         </div>
       </MediaWrap>
       <ButtonWrap>
-        <Button.VoteButton background='Green' onClick={() => vote(true)} >
+        <Button.VoteButton background='Green' onClick={() => vote(true)}>
           <VoteButtonInnerWrap>
             <Text.SmallStrong>{credibleCount}</Text.SmallStrong>
             <Text.Small>Credible</Text.Small>
