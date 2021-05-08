@@ -3,10 +3,25 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
+import mutate from '../utils/mutate'
 
 import { Text, Button } from '../styles'
 
-function AnswerCard ({ answer: answerNode }) {
+const mutation = graphql`
+  mutation AnswerCardMutation ($input:VoteCreateUpdateDeleteInput!){
+    voteCreateUpdateDelete (input:$input){
+      vote{
+        id
+        answer{
+          ...AnswerCard_answer
+        }
+      }
+    }
+  }
+`
+
+function AnswerCard ({ answer: answerNode })
+{
   const {
     id,
     answer,
@@ -17,10 +32,23 @@ function AnswerCard ({ answer: answerNode }) {
   const setColor = (answer === 'True')
   let credibleCount = 0
   let notCredibleCount = 0
-  votes.edges.forEach(({ node: vote }) => {
+  votes.edges.forEach(({ node: vote }) =>
+  {
     if (vote.credible) return credibleCount++
     return notCredibleCount++
   })
+
+  const vote = async (voteStatus) =>
+  {
+    console.log('eneter')
+    var variables = {
+      'input': {
+        'answerId': id,
+        'credible': voteStatus
+      }
+    }
+    await mutate(mutation, variables)
+  }
 
   return (
     <AnswerCardWrap key={id}>
@@ -42,13 +70,13 @@ function AnswerCard ({ answer: answerNode }) {
         </div>
       </MediaWrap>
       <ButtonWrap>
-        <Button.VoteButton background='Green'>
+        <Button.VoteButton background='Green' onClick={() => vote(true)} >
           <VoteButtonInnerWrap>
             <Text.SmallStrong>{credibleCount}</Text.SmallStrong>
             <Text.Small>Credible</Text.Small>
           </VoteButtonInnerWrap>
         </Button.VoteButton>
-        <Button.VoteButton background='Red'>
+        <Button.VoteButton background='Red' onClick={() => vote(false)}>
           <VoteButtonInnerWrap>
             <Text.SmallStrong>{notCredibleCount}</Text.SmallStrong>
             <Text.Small>Not Credible</Text.Small>
