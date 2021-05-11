@@ -37,10 +37,7 @@ const Signup = ({ history }) => {
   })
 
   return (
-    <FullPageForm
-      error={errors.form}
-      onSubmit={handleSubmit}
-    >
+    <FullPageForm onSubmit={handleSubmit}>
       <Text.H1>Sign Up</Text.H1>
 
       <TextInput

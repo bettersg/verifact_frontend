@@ -3,16 +3,16 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 import { createFragmentContainer } from 'react-relay'
-import mutate from '../utils/mutate'
 
 import { Text, Button } from '../styles'
+import useForm from '../hooks/useForm'
 
 const mutation = graphql`
   mutation AnswerCardMutation ($input:VoteCreateUpdateDeleteInput!){
     voteCreateUpdateDelete (input:$input){
-      vote{
+      vote {
         id
-        answer{
+        answer {
           ...AnswerCard_answer
         }
       }
@@ -24,11 +24,30 @@ function AnswerCard ({ answer: answerNode }) {
   const {
     id,
     answer,
+    user,
     text,
     citationUrl,
     votes
   } = answerNode
-  const setColor = (answer === 'True')
+  const {
+    input,
+    handleChange,
+    handleSubmit
+  } = useForm({
+    mutation,
+    defaultInput: {
+      answerId: id,
+      credible: null
+    }
+  })
+  // Memo fn avoids infinite loop in useEffect callback
+  const memoHandleSubmit = React.useCallback(handleSubmit, [input])
+
+  React.useEffect(() => {
+    if (input.credible !== null) memoHandleSubmit()
+  }, [input.credible, memoHandleSubmit])
+
+  const setColor = answer === 'True'
   let credibleCount = 0
   let notCredibleCount = 0
   votes.edges.forEach(({ node: vote }) => {
@@ -36,15 +55,10 @@ function AnswerCard ({ answer: answerNode }) {
     return notCredibleCount++
   })
 
-  const vote = async (voteStatus) => {
-    console.log('eneter')
-    const variables = {
-      input: {
-        answerId: id,
-        credible: voteStatus
-      }
-    }
-    await mutate(mutation, variables)
+  function vote (value) {
+    handleChange({
+      target: { name: 'credible', value }
+    })
   }
 
   return (
@@ -53,7 +67,7 @@ function AnswerCard ({ answer: answerNode }) {
         {answer}
       </AnswerHeader>
 
-      <Text.Small>Answered by <b>DEMO</b> </Text.Small>
+      <Text.Small>Answered by <b>{user.username}</b> </Text.Small>
       <Text.Small>{text}</Text.Small>
       <MediaWrap>
         <div>
@@ -73,6 +87,7 @@ function AnswerCard ({ answer: answerNode }) {
             <Text.Small>Credible</Text.Small>
           </VoteButtonInnerWrap>
         </Button.VoteButton>
+
         <Button.VoteButton background='Red' onClick={() => vote(false)}>
           <VoteButtonInnerWrap>
             <Text.SmallStrong>{notCredibleCount}</Text.SmallStrong>
@@ -139,6 +154,9 @@ export default createFragmentContainer(
         text
         citationUrl
         citationTitle
+        user {
+          username
+        }
         votes {
           edges {
             node {

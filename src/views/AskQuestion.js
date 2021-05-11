@@ -40,10 +40,7 @@ function AskQuestion () {
   })
 
   return (
-    <FullPageForm
-      error={errors.form}
-      onSubmit={handleSubmit}
-    >
+    <FullPageForm onSubmit={handleSubmit}>
       <Text.H1>Ask a Question</Text.H1>
 
       <Text.Paragraph>
