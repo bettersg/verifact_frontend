@@ -47,7 +47,6 @@ function AnswerCard ({ answer: answerNode }) {
     if (input.credible !== null) memoHandleSubmit()
   }, [input.credible, memoHandleSubmit])
 
-  const setColor = answer === 'True'
   let credibleCount = 0
   let notCredibleCount = 0
   votes.edges.forEach(({ node: vote }) => {
@@ -63,7 +62,7 @@ function AnswerCard ({ answer: answerNode }) {
 
   return (
     <AnswerCardWrap key={id}>
-      <AnswerHeader setColor={setColor}>
+      <AnswerHeader answerIsTrue={answer === 'True'}>
         {answer}
       </AnswerHeader>
 
@@ -108,7 +107,7 @@ const AnswerCardWrap = styled.div`
 const AnswerHeader = styled(Text.H2)`
   margin: 0;
   text-transform: uppercase;
-  color: ${({ setColor }) => setColor ? 'var(--Green)' : 'var(--Red)'};
+  color: ${({ answerIsTrue }) => answerIsTrue ? 'var(--Green)' : 'var(--Red)'};
 `
 
 const MediaWrap = styled.div`
