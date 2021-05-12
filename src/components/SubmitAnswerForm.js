@@ -39,10 +39,7 @@ export default function SubmitAnswerForm ({ close, questionId }) {
   })
 
   return (
-    <FullPageForm
-      error={errors.form}
-      onSubmit={handleSubmit}
-    >
+    <FullPageForm onSubmit={handleSubmit}>
       <Text.H1>Answer the Question</Text.H1>
 
       <Form.Group>

@@ -37,10 +37,7 @@ const Login = ({ history }) => {
   })
 
   return (
-    <FullPageForm
-      error={errors.form}
-      onSubmit={handleSubmit}
-    >
+    <FullPageForm onSubmit={handleSubmit}>
       <Text.H1>Log In</Text.H1>
 
       <TextInput

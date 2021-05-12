@@ -1,13 +1,12 @@
 import React from 'react'
 
-import { Form, Container, Alert } from 'react-bootstrap'
+import { Form, Container } from 'react-bootstrap'
 import { Layout } from '../../styles'
 
-function FullPageForm ({ error, onSubmit, children }) {
+function FullPageForm ({ onSubmit, children }) {
   return (
     <Container>
       <Layout.FormWrap>
-        {error && <Alert variant='danger'>{error}</Alert>}
         <Form onSubmit={onSubmit}>
           {children}
         </Form>

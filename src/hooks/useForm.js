@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import isEqual from 'lodash/isEqual'
 import camelToSentenceCase from '../utils/camelToSentenceCase'
 
+import { NotificationContext } from '../context/Notification'
 import mutate from '../utils/mutate'
 import validate from '../utils/validation'
 
@@ -21,14 +22,6 @@ function _validateInput (input, required, setErrors) {
   return isValid
 }
 
-function handleServerError (error, setErrors) {
-  if (error.message) {
-    setErrors({ form: 'There was a problem completing the requested action. Please try again soon, or contact us if the problem persists.' })
-  } else if (Array.isArray(error) && error[0].message) {
-    setErrors({ form: error[0].message })
-  }
-}
-
 function useForm ({
   mutation,
   vars,
@@ -38,6 +31,7 @@ function useForm ({
   massageInput,
   noResetOnSubmit
 }) {
+  const notification = useContext(NotificationContext)
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState(defaultInput)
   const [errors, setErrors] = useState({})
@@ -51,6 +45,14 @@ function useForm ({
 
   function validateInput () {
     return _validateInput(input, required, setErrors)
+  }
+
+  function handleServerError (error) {
+    if (error.message) {
+      notification.show('There was a problem completing the requested action. Please try again soon, or contact us if the problem persists.', 'danger')
+    } else if (Array.isArray(error) && error[0].message) {
+      notification.show(error[0].message, 'danger')
+    }
   }
 
   function handleChange (e) {
@@ -73,7 +75,7 @@ function useForm ({
       const response = await mutate(mutation, variables)
       afterSubmit && afterSubmit(response)
     } catch (serverErrors) {
-      handleServerError(serverErrors, setErrors)
+      handleServerError(serverErrors)
     } finally {
       if (ref.current) {
         setIsLoading(false)
