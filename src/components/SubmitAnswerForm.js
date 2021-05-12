@@ -35,6 +35,12 @@ export default function SubmitAnswerForm ({ close, questionId }) {
       questionId
     },
     required: ['text', 'citationUrl'],
+    massageInput: input => {
+      const newInput = Object.assign({}, input)
+      newInput.citationUrls = [newInput.citationUrl]
+      delete newInput.citationUrl
+      return newInput
+    },
     afterSubmit: close
   })
 
@@ -90,7 +96,7 @@ export default function SubmitAnswerForm ({ close, questionId }) {
         id='citationUrl'
         name='citationUrl'
         label='Citation Url'
-        placeholder='https://www.verifact.sg/article-123'
+        placeholder='https://verifact.sg/article-123'
         onChange={handleChange}
         error={errors.citationUrl}
       />

@@ -28,11 +28,15 @@ function AskQuestion () {
     mutation,
     defaultInput: {
       text: '',
-      citationUrl: '',
-      citationTitle: '',
-      citationImageUrl: ''
+      citationUrl: ''
     },
     required: ['text', 'citationUrl'],
+    massageInput: input => {
+      const newInput = Object.assign({}, input)
+      newInput.citationUrls = [newInput.citationUrl]
+      delete newInput.citationUrl
+      return newInput
+    },
     afterSubmit: res => {
       const id = res.questionCreate.question.id
       history.push(`/question/${id}`)
@@ -63,7 +67,7 @@ function AskQuestion () {
         label='Citation Url'
         onChange={handleChange}
         error={errors.citationUrl}
-        placeholder='https://www.verifact.sg/article-123'
+        placeholder='https://verifact.sg/article-123'
       />
 
       <Button.FormButtonSet>

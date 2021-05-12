@@ -22,23 +22,26 @@ function QuestionCard ({ question }) {
     id,
     createdAt,
     text,
-    citationUrl,
-    citationTitle,
-    citationImageUrl
+    citations
   } = question
   const dt = new Date(createdAt)
   const formattedCreatedAt = monthDayYear.format(dt)
 
   return (
     <Wrap onClick={() => history.push(`/question/${id}`)}>
-      <Text.H2 children={text} />
+      <Text.H2>{text}</Text.H2>
       <QuestionCardAnswersCount question={question} />
-      <OpenGraphMeta
-        mediaUrl={citationUrl}
-        mediaTitle={citationTitle}
-        mediaImage={citationImageUrl}
-      />
-      <Text.Small children={`Asked on ${formattedCreatedAt}`} />
+      {citations.edges.map(({ node: citation }) => {
+        return (
+          <OpenGraphMeta
+            key={citation.id}
+            mediaUrl={citation.url}
+            mediaTitle={citation.title}
+            mediaImage={citation.imageUrl}
+          />
+        )
+      })}
+      <Text.Small>{`Asked on ${formattedCreatedAt}`}</Text.Small>
     </Wrap>
   )
 }
@@ -51,9 +54,16 @@ export default createFragmentContainer(
         id
         createdAt
         text
-        citationUrl
-        citationTitle
-        citationImageUrl
+        citations {
+          edges {
+            node {
+              id
+              url
+              title
+              imageUrl
+            }
+          }
+        }
         ...QuestionCardAnswersCount_question
       }
     `

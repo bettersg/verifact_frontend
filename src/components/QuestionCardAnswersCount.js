@@ -32,13 +32,20 @@ function QuestionCardAnswersCount ({ question }) {
   })
 
   if (answers.length <= 0) return null
+  const hasTrue = trueAnswers > 0
+  const hasFalse = falseAnswers > 0
+  const hasNeither = neitherAnswers > 0
 
   return (
     <Text>
       {answers.length} answers
-      ({trueAnswers > 0 && `${trueAnswers} true`}
-      {falseAnswers > 0 && `, ${falseAnswers} false`}
-      {neitherAnswers > 0 && `, ${neitherAnswers} neither`})
+      (
+      {hasTrue && `${trueAnswers} true`}
+      {hasTrue && (hasFalse || hasNeither) && ', '}
+      {hasFalse && `${falseAnswers} false`}
+      {hasFalse && hasNeither && ', '}
+      {hasNeither && `${neitherAnswers} neither`}
+      )
     </Text>
   )
 }

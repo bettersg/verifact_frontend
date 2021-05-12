@@ -26,7 +26,7 @@ function AnswerCard ({ answer: answerNode }) {
     answer,
     user,
     text,
-    citationUrl,
+    citations,
     votes
   } = answerNode
   const {
@@ -68,17 +68,19 @@ function AnswerCard ({ answer: answerNode }) {
 
       <Text.Small>Answered by <b>{user.username}</b> </Text.Small>
       <Text.Small>{text}</Text.Small>
-      <MediaWrap>
-        <div>
-          <FiArrowUpRight size={10} />
-          <MediaLink
-            onClick={e => e.stopPropagation()}
-            href={citationUrl}
-          >
-            {citationUrl}
-          </MediaLink>
-        </div>
-      </MediaWrap>
+      {citations.edges.map(({ node: citation }) => {
+        return (
+          <MediaWrap key={citation.id}>
+            <FiArrowUpRight size={10} />
+            <MediaLink
+              onClick={e => e.stopPropagation()}
+              href={citation.url}
+            >
+              {citation.url}
+            </MediaLink>
+          </MediaWrap>
+        )
+      })}
       <ButtonWrap>
         <Button.VoteButton background='Green' onClick={() => vote(true)}>
           <VoteButtonInnerWrap>
@@ -151,10 +153,16 @@ export default createFragmentContainer(
         id
         answer
         text
-        citationUrl
-        citationTitle
         user {
           username
+        }
+        citations {
+          edges {
+            node {
+              id
+              url
+            }
+          }
         }
         votes {
           edges {
