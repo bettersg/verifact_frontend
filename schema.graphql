@@ -5,10 +5,9 @@ schema {
 
 input AnswerCreateInput {
   answer: String!
-  text: String
-  citationUrl: Url
-  citationTitle: String
+  text: String!
   questionId: ID!
+  citationUrls: [Url!]
   clientMutationId: String
 }
 
@@ -22,11 +21,10 @@ type AnswerNode implements Node {
   createdAt: DateTime!
   answer: String!
   text: String!
-  citationUrl: String!
-  citationTitle: String!
   question: QuestionNode!
   user: UserType!
   votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
+  citations(before: String, after: String, first: Int, last: Int): CitationConnection
 }
 
 type AnswerNodeConnection {
@@ -36,6 +34,36 @@ type AnswerNodeConnection {
 
 type AnswerNodeEdge {
   node: AnswerNode
+  cursor: String!
+}
+
+type CitationConnection {
+  pageInfo: PageInfo!
+  edges: [CitationEdge]!
+}
+
+type CitationEdge {
+  node: CitationNode
+  cursor: String!
+}
+
+type CitationNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  user: UserType!
+  url: String!
+  title: String!
+  imageUrl: String!
+  contentPk: Int!
+}
+
+type CitationNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CitationNodeEdge]!
+}
+
+type CitationNodeEdge {
+  node: CitationNode
   cursor: String!
 }
 
@@ -93,9 +121,7 @@ type QuestionConnection {
 
 input QuestionCreateInput {
   text: String!
-  citationUrl: Url!
-  citationTitle: String
-  citationImageUrl: Url
+  citationUrls: [Url!]
   clientMutationId: String
 }
 
@@ -113,11 +139,9 @@ type QuestionNode implements Node {
   id: ID!
   createdAt: DateTime!
   text: String!
-  citationUrl: String!
-  citationTitle: String!
-  citationImageUrl: String!
   user: UserType!
   answers(offset: Int, before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
+  citations(before: String, after: String, first: Int, last: Int): CitationConnection
 }
 
 type QuestionNodeConnection {
@@ -168,6 +192,7 @@ type UserType {
   isStaff: Boolean!
   isActive: Boolean!
   dateJoined: DateTime!
+  citations(offset: Int, before: String, after: String, first: Int, last: Int): CitationNodeConnection!
   questions(offset: Int, before: String, after: String, first: Int, last: Int): QuestionNodeConnection!
   answers(offset: Int, before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
   votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
@@ -210,7 +235,7 @@ type VoteNode implements Node {
   createdAt: DateTime!
   user: UserType!
   answer: AnswerNode!
-  credible: Boolean
+  credible: Boolean!
 }
 
 type VoteNodeConnection {
