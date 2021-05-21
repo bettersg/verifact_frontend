@@ -27,7 +27,8 @@ function AnswerCard ({ answer: answerNode }) {
     user,
     text,
     citations,
-    votes
+    votes,
+    viewerVote
   } = answerNode
   const {
     input,
@@ -55,8 +56,10 @@ function AnswerCard ({ answer: answerNode }) {
   })
 
   function vote (value) {
+    let newInput = (viewerVote.edges.length > 0 && value === viewerVote.edges[0].node.credible) ? { name: 'credible' } : { name: 'credible', value }
+
     handleChange({
-      target: { name: 'credible', value }
+      target: newInput
     })
   }
 
@@ -154,6 +157,7 @@ export default createFragmentContainer(
         answer
         text
         user {
+          id
           username
         }
         citations {
@@ -164,11 +168,25 @@ export default createFragmentContainer(
             }
           }
         }
+        viewerVote {
+          edges {
+            node {
+              id
+              user {
+                id
+              }
+              credible
+            }
+          }
+        }
         votes {
           edges {
             node {
               id
               credible
+              user {
+                id
+              }
             }
           }
         }
