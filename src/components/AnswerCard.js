@@ -56,7 +56,9 @@ function AnswerCard ({ answer: answerNode }) {
   })
 
   function vote (value) {
-    let newInput = (viewerVote.edges.length > 0 && value === viewerVote.edges[0].node.credible) ? { name: 'credible' } : { name: 'credible', value }
+    const newInput = (viewerVote.edges.length > 0 && value === viewerVote.edges[0].node.credible)
+      ? { name: 'credible' }
+      : { name: 'credible', value }
 
     handleChange({
       target: newInput
