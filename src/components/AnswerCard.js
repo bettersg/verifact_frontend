@@ -41,7 +41,7 @@ function AnswerCard ({ answer: answerNode }) {
       credible: null
     },
     massageInput: (input) => {
-      let newInput = Object.assign({}, input)
+      const newInput = Object.assign({}, input)
       if (viewerVote && input.credible === viewerVote.credible) delete newInput.credible
       return newInput
     }
