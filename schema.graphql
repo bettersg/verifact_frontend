@@ -24,8 +24,8 @@ type AnswerNode implements Node {
   question: QuestionNode!
   user: UserType!
   votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
-  viewerVote(before: String, after: String, first: Int, last: Int): VoteConnection
   citations(before: String, after: String, first: Int, last: Int): CitationConnection
+  viewerVote: VoteNode
 }
 
 type AnswerNodeConnection {
@@ -220,11 +220,6 @@ type VerifyPayload {
   clientMutationId: String
 }
 
-type VoteConnection {
-  pageInfo: PageInfo!
-  edges: [VoteEdge]!
-}
-
 input VoteCreateUpdateDeleteInput {
   credible: Boolean
   answerId: ID!
@@ -234,11 +229,6 @@ input VoteCreateUpdateDeleteInput {
 type VoteCreateUpdateDeletePayload {
   vote: VoteNode
   clientMutationId: String
-}
-
-type VoteEdge {
-  node: VoteNode
-  cursor: String!
 }
 
 type VoteNode implements Node {
