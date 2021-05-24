@@ -27,7 +27,8 @@ function AnswerCard ({ answer: answerNode }) {
     user,
     text,
     citations,
-    votes
+    votes,
+    viewerVote
   } = answerNode
   const {
     input,
@@ -38,6 +39,11 @@ function AnswerCard ({ answer: answerNode }) {
     defaultInput: {
       answerId: id,
       credible: null
+    },
+    massageInput: (input) => {
+      const newInput = Object.assign({}, input)
+      if (viewerVote && input.credible === viewerVote.credible) delete newInput.credible
+      return newInput
     }
   })
   // Memo fn avoids infinite loop in useEffect callback
@@ -154,6 +160,7 @@ export default createFragmentContainer(
         answer
         text
         user {
+          id
           username
         }
         citations {
@@ -164,11 +171,21 @@ export default createFragmentContainer(
             }
           }
         }
+        viewerVote {
+          id
+          user {
+            id
+          }
+          credible
+        }
         votes {
           edges {
             node {
               id
               credible
+              user {
+                id
+              }
             }
           }
         }

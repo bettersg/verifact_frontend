@@ -25,6 +25,7 @@ type AnswerNode implements Node {
   user: UserType!
   votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
   citations(before: String, after: String, first: Int, last: Int): CitationConnection
+  viewerVote: VoteNode
 }
 
 type AnswerNodeConnection {
