@@ -58,16 +58,6 @@ type CitationNode implements Node {
   contentPk: Int!
 }
 
-type CitationNodeConnection {
-  pageInfo: PageInfo!
-  edges: [CitationNodeEdge]!
-}
-
-type CitationNodeEdge {
-  node: CitationNode
-  cursor: String!
-}
-
 scalar DateTime
 
 scalar Email
@@ -110,14 +100,9 @@ type PageInfo {
 }
 
 type Query {
-  questions(before: String, after: String, first: Int, last: Int): QuestionConnection
+  questions(offset: Int, before: String, after: String, first: Int, last: Int, orderBy: String): QuestionNodeConnection
   node(id: ID!): Node
   viewer: UserType
-}
-
-type QuestionConnection {
-  pageInfo: PageInfo!
-  edges: [QuestionEdge]!
 }
 
 input QuestionCreateInput {
@@ -129,11 +114,6 @@ input QuestionCreateInput {
 type QuestionCreatePayload {
   question: QuestionNode
   clientMutationId: String
-}
-
-type QuestionEdge {
-  node: QuestionNode
-  cursor: String!
 }
 
 type QuestionNode implements Node {
@@ -183,20 +163,7 @@ type UserCreatePayload {
 
 type UserType {
   id: ID!
-  password: String!
-  lastLogin: DateTime
-  isSuperuser: Boolean!
   username: String!
-  firstName: String!
-  lastName: String!
-  email: String!
-  isStaff: Boolean!
-  isActive: Boolean!
-  dateJoined: DateTime!
-  citations(offset: Int, before: String, after: String, first: Int, last: Int): CitationNodeConnection!
-  questions(offset: Int, before: String, after: String, first: Int, last: Int): QuestionNodeConnection!
-  answers(offset: Int, before: String, after: String, first: Int, last: Int): AnswerNodeConnection!
-  votes(offset: Int, before: String, after: String, first: Int, last: Int): VoteNodeConnection!
 }
 
 input UserUpdateInput {

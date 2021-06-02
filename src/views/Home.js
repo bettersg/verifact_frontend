@@ -9,7 +9,7 @@ import Hero from '../components/Hero'
 
 const query = graphql`
   query HomeQuery {
-    questions {
+    questions (orderBy: "-created_at"){
       edges {
         node {
           id
