@@ -7,7 +7,7 @@ import { setLocalData, getLocalData } from '../utils/localdata'
 export default function Hero (props) {
   const [isClosed, setIsClosed] = useState(getLocalData('verifactHeroClosed'))
   const welcomeTitle = 'Your home for verifying credible news'
-  const welcomeContent = 'Post a question to our community of news sleuths to get answers and new perspectives about the news your reading'
+  const welcomeContent = 'Post a question to our community of news sleuths to get answers and new perspectives about the news you\'re reading'
 
   const close = () => {
     setLocalData('verifactHeroClosed', true)

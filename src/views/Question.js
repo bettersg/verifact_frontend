@@ -56,14 +56,14 @@ export default function Question (props) {
                     </FormWrapper>
 
                     <H2TextWithoutMargin>
-                      All Answer
+                      All Answers
                     </H2TextWithoutMargin>
                   </>
                   )
                 : (
                   <>
                     <H1TextWithMargin>
-                      All Answer
+                      All Answers
                     </H1TextWithMargin>
 
                     <CustomButton onClick={open}>
