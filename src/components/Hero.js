@@ -14,8 +14,10 @@ export default function Hero (props) {
     setIsClosed(true)
   }
 
+  if (isClosed) return null
+
   return (
-    <>{isClosed ? null : (<Wrapper>
+    <Wrapper>
       <HeaderWrapper>
         <Button onClick={close}><CustomIoMdCloseCircle /></Button>
       </HeaderWrapper>
@@ -23,8 +25,7 @@ export default function Hero (props) {
         <Title>{welcomeTitle}</Title>
         <BodyText>{welcomeContent}</BodyText>
       </ContentWrapper>
-    </Wrapper>)}
-    </>
+    </Wrapper>
   )
 }
 
