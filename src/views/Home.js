@@ -62,7 +62,7 @@ function Home () {
                 About VeriFact
               </Text.H3>
 
-              <Text.SmallParagraph>SG VeriFact is a crowdsourced fact-checking platform, where anyone can query about rumours and misinformation circulating in Singapore, and everyone plays a part in verifying the information.</Text.SmallParagraph>
+              <Text.SmallParagraph>SG VeriFact is a crowdsourced fact-checking community, where anyone can query about rumours and misinformation circulating in Singapore, and everyone plays a part in verifying the information.</Text.SmallParagraph>
               <Link to='/about'>
                 <Button.FormButton>LEARN MORE</Button.FormButton>
               </Link>
