@@ -23,7 +23,7 @@ export default (props) => {
         style={{ backgroundColor: 'white' }}
       >
         <Nav style={{ alignItems: 'center' }}>
-          <NavLink href='https://forms.gle/tVzucdnhb6p5p2pRA'>Share Feedback</NavLink>
+          <NavLink target='blank' href='https://forms.gle/tVzucdnhb6p5p2pRA'>Share Feedback</NavLink>
 
           {authValue.isLoggedIn
             ? <NavLink onClick={handleLogOut}>Log Out</NavLink>
@@ -50,9 +50,7 @@ const Brand = styled(Navbar.Brand)`
   padding-bottom: 0;
 `
 
-const Beta = styled(Text.Tiny).attrs({
-  as: 'span'
-})`
+const Beta = styled(Text.Small)`
   position: absolute;
   left: 100%;
   bottom: 100%;

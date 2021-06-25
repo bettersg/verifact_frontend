@@ -72,7 +72,7 @@ function AnswerCard ({ answer: answerNode }) {
         {answer}
       </AnswerHeader>
 
-      <Text.Small>Answered by <b>{user.username}</b> </Text.Small>
+      <Text.Small>Answered by <Text.Strong>{user.username}</Text.Strong></Text.Small>
       <Text.Small>{text}</Text.Small>
       {citations.edges.map(({ node: citation }) => {
         return (
@@ -90,15 +90,17 @@ function AnswerCard ({ answer: answerNode }) {
       <ButtonWrap>
         <Button.VoteButton background='Green' onClick={() => vote(true)}>
           <VoteButtonInnerWrap>
-            <Text.SmallStrong>{credibleCount}</Text.SmallStrong>
-            <Text.Small>Credible</Text.Small>
+            <Text.Small>
+              <Text.Strong>{credibleCount}</Text.Strong> Credible
+            </Text.Small>
           </VoteButtonInnerWrap>
         </Button.VoteButton>
 
         <Button.VoteButton background='Red' onClick={() => vote(false)}>
           <VoteButtonInnerWrap>
-            <Text.SmallStrong>{notCredibleCount}</Text.SmallStrong>
-            <Text.Small>Not Credible</Text.Small>
+            <Text.Small>
+              <Text.Strong>{notCredibleCount}</Text.Strong> Not Credible
+            </Text.Small>
           </VoteButtonInnerWrap>
         </Button.VoteButton>
       </ButtonWrap>
