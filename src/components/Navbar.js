@@ -23,7 +23,7 @@ export default (props) => {
         style={{ backgroundColor: 'white' }}
       >
         <Nav style={{ alignItems: 'center' }}>
-          <NavLink href='https://forms.gle/tVzucdnhb6p5p2pRA'>Share Feedback</NavLink>
+          <NavLink target='blank' href='https://forms.gle/tVzucdnhb6p5p2pRA'>Share Feedback</NavLink>
 
           {authValue.isLoggedIn
             ? <NavLink onClick={handleLogOut}>Log Out</NavLink>
