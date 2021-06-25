@@ -23,7 +23,8 @@ function QuestionCard ({ question }) {
     id,
     createdAt,
     text,
-    citations
+    citations,
+    user
   } = question
   const dt = new Date(createdAt)
   const formattedCreatedAt = monthDayYear.format(dt)
@@ -42,7 +43,7 @@ function QuestionCard ({ question }) {
           />
         )
       })}
-      <Text.Small>{`Asked on ${formattedCreatedAt}`}</Text.Small>
+      <Text.Small>{`Asked by ${user.username} on ${formattedCreatedAt}`}</Text.Small>
     </Wrap>
   )
 }
@@ -64,6 +65,9 @@ export default createFragmentContainer(
               imageUrl
             }
           }
+        }
+        user {
+          username
         }
         ...QuestionCardAnswersCount_question
       }
