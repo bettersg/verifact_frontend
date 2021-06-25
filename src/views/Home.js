@@ -1,11 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
+import { Container, Row, Col } from 'react-bootstrap'
 
-import { PageWrap } from '../styles/Layout'
+import { Module, Text, Button } from '../styles'
 import Query from '../components/Query'
 import QuestionCard from '../components/QuestionCard'
 import Hero from '../components/Hero'
+import Logo from '../assets/VeriFactLogo.svg'
 
 const query = graphql`
   query HomeQuery {
@@ -35,20 +38,38 @@ function Home () {
     <>
       <Hero />
 
-      <PageWrap>
-        <Query
-          query={query}
-          render={({ props }) => {
-            return (
-              <List>
-                {props.questions.edges.map(({ node }) => {
-                  return <QuestionCard key={node.id} question={node} visual />
-                })}
-              </List>
-            )
-          }}
-        />
-      </PageWrap>
+      <Container>
+        <Row>
+          <Col lg='9'>
+            <Query
+              query={query}
+              render={({ props }) => {
+                return (
+                  <List>
+                    {props.questions.edges.map(({ node }) => {
+                      return <QuestionCard key={node.id} question={node} visual />
+                    })}
+                  </List>
+                )
+              }}
+            />
+          </Col>
+
+          <Col lg='3'>
+            <Module.Box>
+              <Text.H3>
+                <img src={Logo} className='mr-2' alt='VeriFact logo' height='25rem' />
+                About VeriFact
+              </Text.H3>
+
+              <Text.SmallParagraph>SG VeriFact is a crowdsourced fact-checking platform, where anyone can query about rumours and misinformation circulating in Singapore, and everyone plays a part in verifying the information.</Text.SmallParagraph>
+              <Link to='/about'>
+                <Button.FormButton>LEARN MORE</Button.FormButton>
+              </Link>
+            </Module.Box>
+          </Col>
+        </Row>
+      </Container>
     </>
   )
 }

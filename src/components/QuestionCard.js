@@ -10,7 +10,8 @@ import OpenGraphMeta from './OpenGraphMeta'
 import QuestionCardAnswersCount from './QuestionCardAnswersCount'
 
 const Wrap = styled.div`
-  padding: 3rem 0;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
   display: grid;
   cursor: pointer;
 `

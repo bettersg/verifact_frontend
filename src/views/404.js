@@ -1,12 +1,13 @@
 import React from 'react'
-import Logo from '../assets/VeriFactLogo.svg'
-import { PageWrap } from '../styles/Layout'
-import { H1 } from '../styles/Text'
 import styled from 'styled-components'
+import { Container } from 'react-bootstrap'
+
+import Logo from '../assets/VeriFactLogo.svg'
+import { H1 } from '../styles/Text'
 
 export default function NotFound (props) {
   return (
-    <PageWrap>
+    <Container>
       <Page404Wrapper>
         <H1>Page Not Found!</H1>
         <CustomH2>
@@ -16,7 +17,7 @@ export default function NotFound (props) {
           <img src={Logo} alt='VeriFact Logo' height='60rem' />
         </a>
       </Page404Wrapper>
-    </PageWrap>
+    </Container>
   )
 }
 

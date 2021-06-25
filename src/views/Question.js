@@ -67,7 +67,7 @@ export default function Question (props) {
                     </H1TextWithMargin>
 
                     <CustomButton onClick={open}>
-                      <Text.ParagraphStrong>Answer the Question</Text.ParagraphStrong>
+                      <Text.Strong>Answer the Question</Text.Strong>
                     </CustomButton>
                   </>
                   )}

@@ -16,6 +16,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  background-color: var(--Background);
+  padding-top: 2rem;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -34,6 +39,7 @@ a:hover {
 }
 
 :root {
+  --White: #ffffff;
   --Red: #e55934;
   --Green: #23be7b;
   --Primary: #ffb800;
@@ -41,6 +47,6 @@ a:hover {
   --TextError: #e55934;
   --TextPrimary: #30323d;
   --TextDisabled: #414141;
-  --Border: #6c718a;
-  --Background: #eef0f2;
+  --Border: #eeeeee;
+  --Background: #F9F9F9;
 }
