@@ -42,7 +42,7 @@ function About () {
 
             <Section>
               <Text.H2>Contact Us <span role='img' aria-label='mail'>📨</span></Text.H2>
-              <Text.Paragraph>If this initiative interests you, feel free to <a href='mailto:yeesiang@better.sg'><Text.Link>get in touch</Text.Link></a> with us!</Text.Paragraph>
+              <Text.Paragraph>If this initiative interests you, feel free to <a href='mailto:verifact.sg@gmail.com'><Text.Link>get in touch</Text.Link></a> with us!</Text.Paragraph>
             </Section>
           </Module.Page>
         </Col>
