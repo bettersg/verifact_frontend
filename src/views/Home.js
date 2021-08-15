@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import graphql from "babel-plugin-relay/macro";
-import { Container, Row, Col } from "react-bootstrap";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import graphql from 'babel-plugin-relay/macro'
+import { Container, Row, Col } from 'react-bootstrap'
 
-import { Module, Text, Button } from "../styles";
-import Query from "../components/Query";
-import QuestionCard from "../components/QuestionCard";
-import Hero from "../components/Hero";
-import Logo from "../assets/VeriFactLogo.svg";
+import { Module, Text, Button } from '../styles'
+import Query from '../components/Query'
+import QuestionCard from '../components/QuestionCard'
+import Hero from '../components/Hero'
+import Logo from '../assets/VeriFactLogo.svg'
 
 const query = graphql`
   query HomeQuery {
@@ -21,22 +21,22 @@ const query = graphql`
       }
     }
   }
-`;
+`
 
 const List = styled.div`
   > * {
     margin-bottom: 2px;
   }
-`;
+`
 
-function Home() {
+function Home () {
   return (
     <>
       <Hero />
 
       <Container>
         <Row>
-          <Col lg="9">
+          <Col lg='9'>
             <Query
               query={query}
               render={({ props }) => {
@@ -45,22 +45,22 @@ function Home() {
                     {props.questions.edges.map(({ node }) => {
                       return (
                         <QuestionCard key={node.id} question={node} visual />
-                      );
+                      )
                     })}
                   </List>
-                );
+                )
               }}
             />
           </Col>
 
-          <Col lg="3">
+          <Col lg='3'>
             <Module.Box>
               <Text.H3>
                 <img
                   src={Logo}
-                  className="mr-2"
-                  alt="VeriFact logo"
-                  height="25rem"
+                  className='mr-2'
+                  alt='VeriFact logo'
+                  height='25rem'
                 />
                 About VeriFact
               </Text.H3>
@@ -71,7 +71,7 @@ function Home() {
                 Singapore, and everyone plays a part in verifying the
                 information.
               </Text.SmallParagraph>
-              <Link to="/about">
+              <Link to='/about'>
                 <Button.FormButton>LEARN MORE</Button.FormButton>
               </Link>
             </Module.Box>
@@ -79,7 +79,7 @@ function Home() {
         </Row>
       </Container>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home
