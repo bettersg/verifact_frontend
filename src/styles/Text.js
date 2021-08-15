@@ -47,7 +47,7 @@ export const Small = styled(SmallParagraph).attrs({
 })`
   margin-bottom: 0;
 `
-export const line = styled.p`
+export const Line = styled.p`
   display: inline-block;
 `
 

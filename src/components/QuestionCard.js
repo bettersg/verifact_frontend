@@ -62,10 +62,10 @@ function QuestionCard ({ question }) {
                   />
                 )
               })}
-              <Text.line>
+              <Text.Line>
                 <Text.Strong>{user.username}</Text.Strong>
                 <Text.Small>{` asked on ${formattedCreatedAt}`}</Text.Small>
-              </Text.line>
+              </Text.Line>
             </CardLeftFormat>
             <QuestionCardAnswersCount
               question={question}
