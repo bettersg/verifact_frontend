@@ -44,6 +44,7 @@ const Wrap = styled.div`
   top: 6rem;
   width: 100%;
   padding: 0 3rem;
+  z-index: 5;
 `
 
 export const NotificationConsumer = NotificationContext.Consumer
