@@ -53,22 +53,22 @@ export default function Question (props) {
             <HeaderWrapper enableForm={showAnswerForm}>
               {showAnswerForm
                 ? (
-                <>
-                  <FormWrapper>
-                    <SubmitAnswerForm close={close} questionId={questionId} />
-                  </FormWrapper>
+                  <>
+                    <FormWrapper>
+                      <SubmitAnswerForm close={close} questionId={questionId} />
+                    </FormWrapper>
 
-                  <H2TextWithoutMargin>All Answers</H2TextWithoutMargin>
-                </>
+                    <H2TextWithoutMargin>All Answers</H2TextWithoutMargin>
+                  </>
                   )
                 : (
-                <>
-                  <H1TextWithMargin>All Answers</H1TextWithMargin>
+                  <>
+                    <H1TextWithMargin>All Answers</H1TextWithMargin>
 
-                  <CustomButton onClick={open}>
-                    <Text.Strong>Answer the Question</Text.Strong>
-                  </CustomButton>
-                </>
+                    <CustomButton onClick={open}>
+                      <Text.Strong>Answer the Question</Text.Strong>
+                    </CustomButton>
+                  </>
                   )}
             </HeaderWrapper>
 
