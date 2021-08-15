@@ -70,7 +70,7 @@ function QuestionCardAnswersCount (props) {
         </p>
       </StatCountFormat>
       <div>
-        <hr class='solid' background-color='black' />
+        <hr className='solid' background-color='black' />
         <p>What's you take?</p>
       </div>
       <StatCountFormat>

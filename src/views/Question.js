@@ -51,7 +51,8 @@ export default function Question (props) {
             <QuestionCard key={questionId} question={props.node} visual />
 
             <HeaderWrapper enableForm={showAnswerForm}>
-              {showAnswerForm ? (
+              {showAnswerForm
+                ? (
                 <>
                   <FormWrapper>
                     <SubmitAnswerForm close={close} questionId={questionId} />
@@ -59,7 +60,8 @@ export default function Question (props) {
 
                   <H2TextWithoutMargin>All Answers</H2TextWithoutMargin>
                 </>
-              ) : (
+                  )
+                : (
                 <>
                   <H1TextWithMargin>All Answers</H1TextWithMargin>
 
@@ -67,7 +69,7 @@ export default function Question (props) {
                     <Text.Strong>Answer the Question</Text.Strong>
                   </CustomButton>
                 </>
-              )}
+                  )}
             </HeaderWrapper>
 
             {props.node.answers.edges.map(({ node }) => {
