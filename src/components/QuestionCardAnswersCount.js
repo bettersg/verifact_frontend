@@ -12,17 +12,18 @@ import {
 } from 'react-icons/fa'
 import { Text } from '../styles'
 
-const RightCardFormat = styled.div`
+const RightCard = styled.div`
   display: flex;
   flex-direction: column;
 `
 
-const StatCountFormat = styled.div`
+const StatCount = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  margin-bottom: -10px;
 `
 
-const ChoiceButtonFormat = styled.p`
+const ChoiceButton = styled.div`
   font-size: 11px;
   margin-right: 15px;
   display: flex;
@@ -31,8 +32,20 @@ const ChoiceButtonFormat = styled.p`
 
 function QuestionCardAnswersCount (props) {
   const answers = props.question.answers.edges
-  const clickMe = () => {
-    props.buttonClick()
+  const handleClickForTrue = () => {
+    props.buttonClick('True')
+  }
+  const handleClickForFalse = () => {
+    props.buttonClick('False')
+  }
+  const handleClickForNeither = () => {
+    props.buttonClick('Neither')
+  }
+
+  const colours = {
+    red: '#e55934',
+    green: '#23be7b',
+    grey: '#6c7186'
   }
 
   let trueAnswers = 0
@@ -55,39 +68,45 @@ function QuestionCardAnswersCount (props) {
   })
 
   return (
-    <RightCardFormat>
+    <RightCard>
       <Text.Strong>{answers.length} answer</Text.Strong>
-      <StatCountFormat>
-        <p style={{ color: 'green', marginRight: '4px' }}>
+      <StatCount>
+        <p style={{ color: colours.green, marginRight: '4px', fontSize: '1rem' }}>
           <FaCheck size='10px' />
           {` ${trueAnswers} True`}
         </p>
-        <p style={{ color: 'red', marginRight: '4px' }}>
+        <p style={{ color: colours.red, marginRight: '4px', fontSize: '1rem' }}>
           <FaTimes size='10px' /> {`${falseAnswers} False`}
         </p>
-        <p style={{ color: 'grey' }}>
+        <p style={{ color: colours.grey, fontSize: '1rem' }}>
           <FaQuestion size='10px' /> {`${neitherAnswers} Neither`}
         </p>
-      </StatCountFormat>
+      </StatCount>
       <div>
         <hr className='solid' background-color='black' />
-        <p>What's you take?</p>
+        <p style={{ fontSize: '1.2rem' }}>What's your take?</p>
       </div>
-      <StatCountFormat>
-        <ChoiceButtonFormat onClick={clickMe}>
-          <FaCheckCircle color='green' size='30px' />
+      <StatCount>
+        <ChoiceButton onClick={handleClickForTrue}>
+          <div style={{ marginLeft: '5px' }}>
+            <FaCheckCircle color={colours.green} size='30px' />
+          </div>
           It is true!
-        </ChoiceButtonFormat>
-        <ChoiceButtonFormat onClick={clickMe}>
-          <FaTimesCircle color='red' size='30px' />
+        </ChoiceButton>
+        <ChoiceButton onClick={handleClickForFalse}>
+          <div style={{ marginLeft: '10px' }}>
+            <FaTimesCircle color={colours.red} size='30px' />
+          </div>
           Fake news!
-        </ChoiceButtonFormat>
-        <ChoiceButtonFormat onClick={clickMe}>
-          <FaQuestionCircle color='grey' size='30px' />
+        </ChoiceButton>
+        <ChoiceButton onClick={handleClickForNeither}>
+          <div style={{ marginLeft: '16px' }}>
+            <FaQuestionCircle color={colours.grey} size='30px' />
+          </div>
           Not sure leh
-        </ChoiceButtonFormat>
-      </StatCountFormat>
-    </RightCardFormat>
+        </ChoiceButton>
+      </StatCount>
+    </RightCard>
   )
 }
 

@@ -37,9 +37,9 @@ function QuestionCard ({ question }) {
   const formattedCreatedAt = monthDayYear.format(dt)
   let show = false
 
-  const onClickShowForm = () => {
+  const onClickShowForm = (opinion) => {
     show = true
-    history.push({ pathname: `/question/${id}`, state: show })
+    history.push({ pathname: `/question/${id}`, state: show, choice: opinion })
   }
 
   return (
@@ -64,7 +64,7 @@ function QuestionCard ({ question }) {
               })}
               <Text.Line>
                 <Text.Strong>{user.username}</Text.Strong>
-                <Text.Small>{` asked on ${formattedCreatedAt}`}</Text.Small>
+                <Text.MetaText>{` asked on ${formattedCreatedAt}`}</Text.MetaText>
               </Text.Line>
             </CardLeftFormat>
             <QuestionCardAnswersCount
