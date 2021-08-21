@@ -56,6 +56,8 @@ const ContentWrapper = styled.div`
 
 const Wrapper = styled.div`
   background: #FFB800;
+  margin-top: -30px;
+  margin-bottom: 20px;
 `
 
 const Title = styled.h1`
