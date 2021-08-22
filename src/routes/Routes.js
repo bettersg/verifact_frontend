@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Route, useHistory } from 'react-router-dom'
+import { Route, useHistory, Switch } from 'react-router-dom'
 import Question from '../views/Question'
 import Home from '../views/Home'
 import Login from '../views/Login'
@@ -7,16 +7,15 @@ import Signup from '../views/Signup'
 import AskQuestion from '../views/AskQuestion'
 import About from '../views/About'
 import NotFound from '../views/404'
-import Switch from 'react-bootstrap/esm/Switch'
 import ReactGA from 'react-ga'
+
+ReactGA.initialize('UA-204918741-1')
 
 export default () => {
   const history = useHistory()
-  ReactGA.initialize('UA-204918741-1')
   useEffect(() => {
-    const host = window.location.hostname
     // To not track activities in GA during development testing
-    if (host !== 'localhost') {
+    if (window.location.hostname !== 'localhost') {
       trackPageView() // To track the first pageview upon load
       history.listen(trackPageView) // To track the subsequent pageviews
     }

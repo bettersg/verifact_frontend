@@ -24,6 +24,9 @@
     "eject": "react-scripts eject",
     "relay": "relay-compiler --src ./src --schema ./schema.graphql"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
