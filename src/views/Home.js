@@ -12,7 +12,7 @@ import Logo from '../assets/VeriFactLogo.svg'
 
 const query = graphql`
   query HomeQuery {
-    questions (orderBy: "-created_at"){
+    questions(orderBy: "-created_at") {
       edges {
         node {
           id
@@ -25,11 +25,7 @@ const query = graphql`
 
 const List = styled.div`
   > * {
-    border-bottom: 1px solid var(--Border);
-
-    &:last-child {
-      border-bottom: 0;
-    }
+    margin-bottom: 2px;
   }
 `
 
@@ -47,7 +43,9 @@ function Home () {
                 return (
                   <List>
                     {props.questions.edges.map(({ node }) => {
-                      return <QuestionCard key={node.id} question={node} visual />
+                      return (
+                        <QuestionCard key={node.id} question={node} visual />
+                      )
                     })}
                   </List>
                 )
@@ -58,11 +56,21 @@ function Home () {
           <Col lg='3'>
             <Module.Box>
               <Text.H3>
-                <img src={Logo} className='mr-2' alt='VeriFact logo' height='25rem' />
+                <img
+                  src={Logo}
+                  className='mr-2'
+                  alt='VeriFact logo'
+                  height='25rem'
+                />
                 About VeriFact
               </Text.H3>
 
-              <Text.SmallParagraph>VeriFact SG is a crowdsourced fact-checking community, where anyone can query about rumours and misinformation circulating in Singapore, and everyone plays a part in verifying the information.</Text.SmallParagraph>
+              <Text.SmallParagraph>
+                VeriFact SG is a crowdsourced fact-checking community, where
+                anyone can query about rumours and misinformation circulating in
+                Singapore, and everyone plays a part in verifying the
+                information.
+              </Text.SmallParagraph>
               <Link to='/about'>
                 <Button.FormButton>LEARN MORE</Button.FormButton>
               </Link>

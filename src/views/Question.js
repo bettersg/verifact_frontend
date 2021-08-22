@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import graphql from 'babel-plugin-relay/macro'
 
@@ -9,10 +9,10 @@ import AnswerCard from '../components/AnswerCard'
 import { Text, Button } from '../styles'
 
 const query = graphql`
-  query QuestionQuery ($questionId: ID!){
+  query QuestionQuery($questionId: ID!) {
     node(id: $questionId) {
       ...QuestionCard_question
-      ...on QuestionNode {
+      ... on QuestionNode {
         answers {
           edges {
             node {
@@ -29,9 +29,15 @@ const query = graphql`
 export default function Question (props) {
   const questionId = props.match.params.id
   const [showAnswerForm, setShowAnswerForm] = useState(false)
+  const [answerChoice, setAnswerChoice] = useState('True')
+  useEffect(() => {
+    setShowAnswerForm(props.location.state)
+    setAnswerChoice(props.location.choice)
+  }, [props.location.state, props.location.choice, props.location])
 
   function open () {
     setShowAnswerForm(true)
+    setAnswerChoice('True')
   }
 
   function close () {
@@ -52,19 +58,15 @@ export default function Question (props) {
                 ? (
                   <>
                     <FormWrapper>
-                      <SubmitAnswerForm close={close} questionId={questionId} />
+                      <SubmitAnswerForm choice={answerChoice} close={close} questionId={questionId} />
                     </FormWrapper>
 
-                    <H2TextWithoutMargin>
-                      All Answers
-                    </H2TextWithoutMargin>
+                    <H2TextWithoutMargin>All Answers</H2TextWithoutMargin>
                   </>
                   )
                 : (
                   <>
-                    <H1TextWithMargin>
-                      All Answers
-                    </H1TextWithMargin>
+                    <H1TextWithMargin>All Answers</H1TextWithMargin>
 
                     <CustomButton onClick={open}>
                       <Text.Strong>Answer the Question</Text.Strong>
@@ -108,7 +110,9 @@ const HeaderWrapper = styled.div`
   margin-bottom: 3rem;
   grid-template-rows: auto auto;
 
-  ${({ enableForm }) => !enableForm && `
+  ${({ enableForm }) =>
+    !enableForm &&
+    `
     grid-template-columns: auto auto;
   `}
 `
@@ -126,7 +130,7 @@ const CustomButton = styled(Button.FormButton)`
 
 const AnswerWrapper = styled.div`
   display: grid;
-  background: #EEF0F2;
+  background: #eef0f2;
   padding: 2rem 2rem 2.386rem 2rem;
   margin: 3rem 0;
   border-radius: 2rem;
