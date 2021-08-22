@@ -17,16 +17,23 @@ const Wrap = styled.div`
   cursor: pointer;
 `
 
-const CardBodyFormat = styled.div`
+const CardBody = styled.div`
   display: flex;
   justify-content: space-evenly;
+
+  @media only screen and (max-width: 600px){
+    flex-direction: column;
+  }
 `
 
-const CardLeftFormat = styled.div`
+const CardLeft = styled.div`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 70%;
+`
+const CardRight = styled.div`
+  min-width: 18.5rem;
 `
 
 function QuestionCard ({ question }) {
@@ -46,8 +53,8 @@ function QuestionCard ({ question }) {
     <Wrap>
       <Card>
         <Card.Body>
-          <CardBodyFormat>
-            <CardLeftFormat
+          <CardBody>
+            <CardLeft
               onClick={() =>
                 history.push({ pathname: `/question/${id}`, state: show })}
             >
@@ -63,15 +70,19 @@ function QuestionCard ({ question }) {
                 )
               })}
               <Text.Line>
-                <Text.Strong>{user.username}</Text.Strong>
-                <Text.MetaText>{` asked on ${formattedCreatedAt}`}</Text.MetaText>
+                <Text.MetaText>
+                  <Text.Strong>{user.username}</Text.Strong>
+                  {` asked on ${formattedCreatedAt}`}
+                </Text.MetaText>
               </Text.Line>
-            </CardLeftFormat>
-            <QuestionCardAnswersCount
-              question={question}
-              buttonClick={onClickShowForm}
-            />
-          </CardBodyFormat>
+            </CardLeft>
+            <CardRight>
+              <QuestionCardAnswersCount
+                question={question}
+                buttonClick={onClickShowForm}
+              />
+            </CardRight>
+          </CardBody>
         </Card.Body>
       </Card>
     </Wrap>
