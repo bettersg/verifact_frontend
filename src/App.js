@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { AuthProvider } from './context/Auth'
 import { NotificationProvider } from './context/Notification'
-import Routes from './routes/Routes'
+import Routes from './routes'
 import Navbar from './components/Navbar'
 
 export default function App () {

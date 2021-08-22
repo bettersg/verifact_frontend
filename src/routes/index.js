@@ -11,7 +11,7 @@ import ReactGA from 'react-ga'
 
 ReactGA.initialize('UA-204918741-1')
 
-export default () => {
+export default function Routes () {
   const history = useHistory()
   useEffect(() => {
     // To not track activities in GA during development testing
