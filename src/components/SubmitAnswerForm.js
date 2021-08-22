@@ -20,7 +20,7 @@ const mutation = graphql`
   }
 `
 
-export default function SubmitAnswerForm ({ close, questionId }) {
+export default function SubmitAnswerForm ({ close, questionId, choice }) {
   const {
     errors,
     handleChange,
@@ -29,7 +29,7 @@ export default function SubmitAnswerForm ({ close, questionId }) {
   } = useForm({
     mutation,
     defaultInput: {
-      answer: 'True',
+      answer: choice,
       text: '',
       citationUrl: '',
       questionId
@@ -50,13 +50,13 @@ export default function SubmitAnswerForm ({ close, questionId }) {
 
       <Form.Group>
         <Input.Radio
-          defaultChecked
           inline
           id='answerTrue'
           type='radio'
           name='answer'
           value='True'
           label='True'
+          checked={choice === 'True'}
           onChange={handleChange}
         />
 
@@ -67,6 +67,7 @@ export default function SubmitAnswerForm ({ close, questionId }) {
           type='radio'
           name='answer'
           value='False'
+          checked={choice === 'False'}
           onChange={handleChange}
         />
 
@@ -77,6 +78,7 @@ export default function SubmitAnswerForm ({ close, questionId }) {
           type='radio'
           name='answer'
           value='Neither'
+          checked={choice === 'Neither'}
           onChange={handleChange}
         />
       </Form.Group>

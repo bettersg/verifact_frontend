@@ -34,6 +34,13 @@ export const SmallParagraph = styled(Paragraph)`
   margin-bottom: 1rem;
 `
 
+export const MetaText = styled(Paragraph).attrs({
+  as: 'span'
+})`
+  font-size: 1.2rem;
+  margin-bottom: 0;
+`
+
 export const Strong = styled.strong`
   font-weight: bold;
 `
@@ -46,6 +53,9 @@ export const Small = styled(SmallParagraph).attrs({
   as: 'span'
 })`
   margin-bottom: 0;
+`
+export const Line = styled.p`
+  display: inline-block;
 `
 
 export const Error = styled.p`
