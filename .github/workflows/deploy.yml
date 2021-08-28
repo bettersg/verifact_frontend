@@ -33,6 +33,7 @@ jobs:
       - name: Build production bundle
         env:
           REACT_APP_API_HOST: ${{ secrets.REACT_APP_API_HOST }}
+          REACT_APP_GA_TRACKING_ID: ${{ secrets.REACT_APP_GA_TRACKING_ID }}
         run: npm run build
 
       - name: Setup Google Cloud SDK
