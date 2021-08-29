@@ -89,7 +89,7 @@ function useForm ({
     isLoading,
     isChanged: !isEqual(defaultInput, input),
     handleChange,
-    handleSubmit,
+    handleSubmit
   }
 }
 
