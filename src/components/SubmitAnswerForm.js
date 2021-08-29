@@ -26,8 +26,7 @@ export default function SubmitAnswerForm ({ close, questionId, choice }) {
     handleSubmit,
     handleChange,
     isLoading,
-    selection,
-    handleRadioChange
+    input
   } = useForm({
     mutation,
     defaultInput: {
@@ -58,8 +57,8 @@ export default function SubmitAnswerForm ({ close, questionId, choice }) {
           name='answer'
           value='True'
           label='True'
-          checked={selection === 'True'}
-          onChange={handleRadioChange}
+          checked={input.answer === 'True'}
+          onChange={handleChange}
         />
 
         <Input.Radio
@@ -69,8 +68,8 @@ export default function SubmitAnswerForm ({ close, questionId, choice }) {
           type='radio'
           name='answer'
           value='False'
-          checked={selection === 'False'}
-          onChange={handleRadioChange}
+          checked={input.answer === 'False'}
+          onChange={handleChange}
         />
 
         <Input.Radio
@@ -80,8 +79,8 @@ export default function SubmitAnswerForm ({ close, questionId, choice }) {
           type='radio'
           name='answer'
           value='Neither'
-          checked={selection === 'Neither'}
-          onChange={handleRadioChange}
+          checked={input.answer === 'Neither'}
+          onChange={handleChange}
         />
       </Form.Group>
 
