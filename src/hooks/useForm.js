@@ -35,6 +35,7 @@ function useForm ({
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState(defaultInput)
   const [errors, setErrors] = useState({})
+  const [selection, setSelection] = useState(defaultInput.answer)
   const ref = useRef(false)
   if (!vars) vars = {}
 
@@ -60,6 +61,11 @@ function useForm ({
     const newInput = Object.assign({}, input)
     newInput[name] = value
     setInput(newInput)
+  }
+
+  function handleRadioChange (e) {
+    handleChange(e)
+    setSelection(e.target.value)
   }
 
   async function handleSubmit (e) {
@@ -89,7 +95,9 @@ function useForm ({
     isLoading,
     isChanged: !isEqual(defaultInput, input),
     handleChange,
-    handleSubmit
+    handleSubmit,
+    selection,
+    handleRadioChange
   }
 }
 
