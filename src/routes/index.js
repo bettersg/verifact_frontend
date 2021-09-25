@@ -17,7 +17,7 @@ export default function Routes () {
     // To not track activities in GA during development testing
     if (window.location.hostname !== 'localhost') {
       trackPageView() // To track the first pageview upon load
-      history.listen(trackPageView) // To track the subsequent pageviews
+      return history.listen(trackPageView) // To track the subsequent pageviews
     }
   }, [history])
 
