@@ -14,14 +14,21 @@ function About () {
             <Section>
               <Text.H1>What is VeriFact?</Text.H1>
               <Text.Paragraph>
-                VeriFact is a <Text.Strong>crowdsourced fact-checking community</Text.Strong>, where anyone can query about rumours and misinformation circulating in Singapore, and everyone plays a part in verifying the information.
+                VeriFact is a <Text.Strong>crowdsourced fact-checking platform</Text.Strong>, where anyone can query about rumours and misinformation circulating in Singapore, and everyone plays a part in verifying the information.
               </Text.Paragraph>
             </Section>
 
             <Section>
               <Text.H2>What is our mission? <span role='img' aria-label='rocket'>🚀</span></Text.H2>
               <Text.Paragraph>
-                At VeriFact, we aim to first and foremost help verify rumours and misinformation circulating in Singapore, to reduce any informational uncertainty that may be harmful to our society. But in the broader scheme of things, we hope to cultivate a culture of fact-checking and information literacy, to strengthen the societal resilience within Singapore.
+                At VeriFact, we aim to first and foremost help verify the veracity of rumours and misinformation that may be harmful to our society. More broadly, we hope to raise information literacy, and cultivate a collective culture of bringing truth to light, so as to strengthen the societal resilience within Singapore.
+              </Text.Paragraph>
+            </Section>
+
+            <Section>
+              <Text.H2>What does our logo represent?</Text.H2>
+              <Text.Paragraph>
+                The VeriFact logo is actually a firefly, which represents an organic source of light that casts light on the uncertainties of information, and the way fireflies gather in swarms portrays VeriFact as a crowdsourcing platform.
               </Text.Paragraph>
             </Section>
 
