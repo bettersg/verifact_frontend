@@ -47,11 +47,11 @@ function QuestionCard ({ question }) {
   const authValue = React.useContext(AuthContext)
 
   const onClickShowForm = (opinion) => {
-    if(authValue.isLoggedIn){
+    if (authValue.isLoggedIn) {
       show = true
       history.push({ pathname: `/question/${id}`, state: show, choice: opinion })
-    }else {
-      history.push({ pathname: `/login`})
+    } else {
+      history.push({ pathname: '/login' })
     }
   }
 

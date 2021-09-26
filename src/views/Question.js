@@ -41,11 +41,11 @@ export default function Question (props) {
   }, [props.location.state, props.location.choice, props.location])
 
   function open () {
-    if(authValue.isLoggedIn){
+    if (authValue.isLoggedIn) {
       setShowAnswerForm(true)
       setAnswerChoice('True')
     } else {
-      history.push({ pathname: `/login`})
+      history.push({ pathname: '/login' })
     }
   }
 
