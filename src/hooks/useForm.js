@@ -23,12 +23,14 @@ function _validateInput (input, required, setErrors) {
 }
 
 function useForm ({
+  setValue,
   mutation,
   vars,
   defaultInput,
   required = [],
   afterSubmit,
   massageInput,
+  placeholder,
   noResetOnSubmit
 }) {
   const notification = useContext(NotificationContext)
@@ -62,6 +64,18 @@ function useForm ({
     setInput(newInput)
   }
 
+  function handleChangeForPlaceholder (e) {
+    const { name, value } = e.target
+    const newInput = Object.assign({}, input)
+    newInput[name] = value
+    if (!value.includes(placeholder)) {
+      setValue(placeholder + value)
+    } else {
+      setValue(value)
+    }
+    setInput(newInput)
+  }
+
   async function handleSubmit (e) {
     e && e.preventDefault && e.preventDefault()
     if (isLoading || !validateInput()) return
@@ -89,7 +103,8 @@ function useForm ({
     isLoading,
     isChanged: !isEqual(defaultInput, input),
     handleChange,
-    handleSubmit
+    handleSubmit,
+    handleChangeForPlaceholder
   }
 }
 
