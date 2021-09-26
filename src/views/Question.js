@@ -7,6 +7,8 @@ import QuestionCard from '../components/QuestionCard'
 import SubmitAnswerForm from '../components/SubmitAnswerForm'
 import AnswerCard from '../components/AnswerCard'
 import { Text, Button } from '../styles'
+import { AuthContext } from '../context/Auth'
+import { useHistory } from 'react-router-dom'
 
 const query = graphql`
   query QuestionQuery($questionId: ID!) {
@@ -30,14 +32,21 @@ export default function Question (props) {
   const questionId = props.match.params.id
   const [showAnswerForm, setShowAnswerForm] = useState(false)
   const [answerChoice, setAnswerChoice] = useState('True')
+  const authValue = React.useContext(AuthContext)
+  const history = useHistory()
+
   useEffect(() => {
     setShowAnswerForm(props.location.state)
     setAnswerChoice(props.location.choice)
   }, [props.location.state, props.location.choice, props.location])
 
   function open () {
-    setShowAnswerForm(true)
-    setAnswerChoice('True')
+    if(authValue.isLoggedIn){
+      setShowAnswerForm(true)
+      setAnswerChoice('True')
+    } else {
+      history.push({ pathname: `/login`})
+    }
   }
 
   function close () {

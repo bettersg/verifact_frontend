@@ -32,7 +32,7 @@ const Login = ({ history }) => {
     required: ['username', 'password'],
     afterSubmit: res => {
       value.logIn(res.tokenAuth.token)
-      history.push('/')
+      history.goBack()
     }
   })
 

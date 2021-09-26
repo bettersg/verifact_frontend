@@ -9,6 +9,7 @@ import { Text } from '../styles'
 import { monthDayYear } from '../utils/datetime'
 import OpenGraphMeta from './OpenGraphMeta'
 import QuestionCardAnswersCount from './QuestionCardAnswersCount'
+import { AuthContext } from '../context/Auth'
 
 const Wrap = styled.div`
   padding-bottom: 3rem;
@@ -43,10 +44,15 @@ function QuestionCard ({ question }) {
   const dt = new Date(createdAt)
   const formattedCreatedAt = monthDayYear.format(dt)
   let show = false
+  const authValue = React.useContext(AuthContext)
 
   const onClickShowForm = (opinion) => {
-    show = true
-    history.push({ pathname: `/question/${id}`, state: show, choice: opinion })
+    if(authValue.isLoggedIn){
+      show = true
+      history.push({ pathname: `/question/${id}`, state: show, choice: opinion })
+    }else {
+      history.push({ pathname: `/login`})
+    }
   }
 
   return (
