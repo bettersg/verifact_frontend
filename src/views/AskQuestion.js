@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import graphql from 'babel-plugin-relay/macro'
 import { useHistory } from 'react-router-dom'
 
@@ -19,12 +19,16 @@ const mutation = graphql`
 
 function AskQuestion () {
   const history = useHistory()
+  const [value, setValue] = useState('')
   const {
     errors,
+    handleChangeForPlaceholder,
     handleChange,
     handleSubmit,
     isLoading
   } = useForm({
+    placeholder: 'Is it true that ',
+    setValue,
     mutation,
     defaultInput: {
       text: '',
@@ -55,7 +59,9 @@ function AskQuestion () {
         id='text'
         name='text'
         label='Question'
-        onChange={handleChange}
+        value={value}
+        placeholder='Is it true that'
+        onChange={handleChangeForPlaceholder}
         error={errors.text}
         as='textarea'
         rows={3}
